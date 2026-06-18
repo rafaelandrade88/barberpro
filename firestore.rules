@@ -1,0 +1,84 @@
+// ─────────────────────────────────────────────────────────────
+// firestore.rules — BarberPro v1.0.0
+// ─────────────────────────────────────────────────────────────
+// Deploy: firebase deploy --only firestore:rules
+// ─────────────────────────────────────────────────────────────
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper: verifica se o usuário está autenticado
+    function isAuth() {
+      return request.auth != null;
+    }
+
+    // Helper: verifica se o telefone está na lista de admins
+    // Adicione os números no formato +5511999999999
+    function isAdmin() {
+      return isAuth() && request.auth.token.phone_number in [
+        "+5511999999999"  // ← substitua pelo telefone do barbeiro
+      ];
+    }
+
+    // Helper: verifica se o usuário é o dono do documento
+    function isOwner(userId) {
+      return isAuth() && request.auth.uid == userId;
+    }
+
+    // ────────────────────────────────────────
+    // USERS — cada usuário lê/edita o próprio doc; admin lê todos
+    // ────────────────────────────────────────
+    match /users/{userId} {
+      allow read:   if isOwner(userId) || isAdmin();
+      allow write:  if isOwner(userId) || isAdmin();
+    }
+
+    // ────────────────────────────────────────
+    // SERVICES — qualquer autenticado lê; admin gerencia
+    // ────────────────────────────────────────
+    match /services/{serviceId} {
+      allow read:   if isAuth();
+      allow write:  if isAdmin();
+    }
+
+    // ────────────────────────────────────────
+    // PRODUCTS — apenas admin
+    // ────────────────────────────────────────
+    match /products/{productId} {
+      allow read, write: if isAdmin();
+    }
+
+    // ────────────────────────────────────────
+    // BOOKINGS — cliente cria/lê os próprios; admin vê todos
+    // ────────────────────────────────────────
+    match /bookings/{bookingId} {
+      // Leitura: dono do agendamento ou admin
+      allow read: if isAuth() && (
+        resource.data.userId == request.auth.uid || isAdmin()
+      );
+
+      // Criação: usuário autenticado, criando para si mesmo
+      allow create: if isAuth() &&
+        request.resource.data.userId == request.auth.uid &&
+        request.resource.data.keys().hasAll(['userId','userPhone','serviceId','dateKey','time','status']);
+
+      // Atualização: dono só pode cancelar; admin pode tudo
+      allow update: if isAdmin() ||
+        (isOwner(resource.data.userId) &&
+         request.resource.data.status == 'cancelled' &&
+         resource.data.status in ['pending','confirmed']);
+
+      // Exclusão: apenas admin
+      allow delete: if isAdmin();
+    }
+
+    // ────────────────────────────────────────
+    // GALLERY — qualquer autenticado vê; apenas admin posta/remove
+    // ────────────────────────────────────────
+    match /gallery/{photoId} {
+      allow read:   if isAuth();
+      allow write:  if isAdmin();
+    }
+  }
+}
