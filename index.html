@@ -2381,12 +2381,14 @@
        AUTH — PHONE
     ────────────────────────────────────────── */
     function setupRecaptcha() {
-      if (!window.recaptchaVerifier) {
-        window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-          size: 'invisible',
-          callback: () => { }
-        });
+      if (window.recaptchaVerifier) {
+        window.recaptchaVerifier.clear();
+        window.recaptchaVerifier = null;
       }
+      window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+        size: 'invisible',
+        callback: () => { }
+      });
     }
 
     async function sendPhoneCode() {
