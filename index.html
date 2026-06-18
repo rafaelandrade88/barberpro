@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,43 +10,52 @@
   <link rel="manifest" href="manifest.json" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
 
   <style>
     /* ═══════════════════════════════════════════
        DESIGN TOKENS
     ═══════════════════════════════════════════ */
     :root {
-      --black:      #0d0d0d;
+      --black: #0d0d0d;
       --black-soft: #161616;
       --black-card: #1e1e1e;
-      --black-hover:#252525;
-      --gold:       #c9a84c;
+      --black-hover: #252525;
+      --gold: #c9a84c;
       --gold-light: #e0bb6a;
-      --gold-dim:   #7a5f25;
-      --white:      #f5f0e8;
-      --white-dim:  #9e9889;
-      --red:        #e05252;
-      --green:      #4caf7a;
+      --gold-dim: #7a5f25;
+      --white: #f5f0e8;
+      --white-dim: #9e9889;
+      --red: #e05252;
+      --green: #4caf7a;
 
       --font-display: 'Bebas Neue', sans-serif;
-      --font-body:    'Inter', sans-serif;
+      --font-body: 'Inter', sans-serif;
 
       --radius-sm: 8px;
       --radius-md: 14px;
       --radius-lg: 20px;
 
-      --shadow: 0 4px 24px rgba(0,0,0,0.5);
-      --shadow-gold: 0 0 20px rgba(201,168,76,0.25);
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+      --shadow-gold: 0 0 20px rgba(201, 168, 76, 0.25);
 
-      --transition: 0.22s cubic-bezier(0.4,0,0.2,1);
+      --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 
       --header-h: 60px;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       font-family: var(--font-body);
@@ -58,20 +68,31 @@
     /* ═══════════════════════════════════════════
        SCROLLBAR
     ═══════════════════════════════════════════ */
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: var(--black-soft); }
-    ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 4px; }
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--black-soft);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--gold-dim);
+      border-radius: 4px;
+    }
 
     /* ═══════════════════════════════════════════
        HEADER
     ═══════════════════════════════════════════ */
     #header {
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: 0;
+      left: 0;
+      right: 0;
       height: var(--header-h);
-      background: rgba(13,13,13,0.92);
+      background: rgba(13, 13, 13, 0.92);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(201,168,76,0.15);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -87,7 +108,10 @@
       text-decoration: none;
       cursor: pointer;
     }
-    .header-logo span { color: var(--white); }
+
+    .header-logo span {
+      color: var(--white);
+    }
 
     .header-right {
       display: flex;
@@ -97,9 +121,9 @@
 
     .version-badge {
       font-size: 10px;
-      background: rgba(201,168,76,0.12);
+      background: rgba(201, 168, 76, 0.12);
       color: var(--gold);
-      border: 1px solid rgba(201,168,76,0.3);
+      border: 1px solid rgba(201, 168, 76, 0.3);
       padding: 3px 8px;
       border-radius: 20px;
       letter-spacing: 1px;
@@ -107,89 +131,138 @@
 
     /* HAMBURGER */
     .hamburger {
-      width: 36px; height: 36px;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       gap: 5px;
       cursor: pointer;
       border-radius: var(--radius-sm);
       background: var(--black-card);
-      border: 1px solid rgba(201,168,76,0.2);
+      border: 1px solid rgba(201, 168, 76, 0.2);
       transition: var(--transition);
     }
-    .hamburger:hover { background: var(--black-hover); border-color: var(--gold); }
+
+    .hamburger:hover {
+      background: var(--black-hover);
+      border-color: var(--gold);
+    }
+
     .hamburger span {
       display: block;
-      width: 18px; height: 2px;
+      width: 18px;
+      height: 2px;
       background: var(--white);
       border-radius: 2px;
       transition: var(--transition);
     }
-    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+    .hamburger.open span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
 
     /* ═══════════════════════════════════════════
        SIDE MENU DRAWER
     ═══════════════════════════════════════════ */
     #overlay {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.6);
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
       z-index: 1100;
       opacity: 0;
       pointer-events: none;
       transition: opacity var(--transition);
     }
-    #overlay.show { opacity: 1; pointer-events: all; }
+
+    #overlay.show {
+      opacity: 1;
+      pointer-events: all;
+    }
 
     #drawer {
       position: fixed;
-      top: 0; right: 0;
-      width: 280px; height: 100dvh;
+      top: 0;
+      right: 0;
+      width: 280px;
+      height: 100dvh;
       background: var(--black-soft);
-      border-left: 1px solid rgba(201,168,76,0.15);
+      border-left: 1px solid rgba(201, 168, 76, 0.15);
       z-index: 1200;
       transform: translateX(100%);
-      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       display: flex;
       flex-direction: column;
       overflow-y: auto;
     }
-    #drawer.open { transform: translateX(0); }
+
+    #drawer.open {
+      transform: translateX(0);
+    }
 
     .drawer-header {
       padding: 24px 20px 16px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
+
     .drawer-title {
       font-family: var(--font-display);
       font-size: 22px;
       letter-spacing: 2px;
       color: var(--gold);
     }
+
     .drawer-close {
-      width: 30px; height: 30px;
-      display: flex; align-items: center; justify-content: center;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
       font-size: 18px;
       color: var(--white-dim);
       border-radius: 6px;
       transition: var(--transition);
     }
-    .drawer-close:hover { background: var(--black-hover); color: var(--white); }
+
+    .drawer-close:hover {
+      background: var(--black-hover);
+      color: var(--white);
+    }
 
     .drawer-user-info {
       padding: 16px 20px;
-      background: rgba(201,168,76,0.06);
-      border-bottom: 1px solid rgba(201,168,76,0.1);
+      background: rgba(201, 168, 76, 0.06);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.1);
     }
-    .drawer-user-name { font-weight: 600; font-size: 15px; }
-    .drawer-user-phone { font-size: 12px; color: var(--white-dim); margin-top: 2px; }
 
-    .drawer-nav { flex: 1; padding: 12px 0; }
+    .drawer-user-name {
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .drawer-user-phone {
+      font-size: 12px;
+      color: var(--white-dim);
+      margin-top: 2px;
+    }
+
+    .drawer-nav {
+      flex: 1;
+      padding: 12px 0;
+    }
 
     .drawer-section-label {
       font-size: 10px;
@@ -211,25 +284,41 @@
       color: var(--white-dim);
       border-left: 3px solid transparent;
     }
-    .drawer-item:hover, .drawer-item.active {
-      background: rgba(201,168,76,0.08);
+
+    .drawer-item:hover,
+    .drawer-item.active {
+      background: rgba(201, 168, 76, 0.08);
       color: var(--white);
       border-left-color: var(--gold);
     }
-    .drawer-item .icon { font-size: 18px; width: 22px; text-align: center; }
+
+    .drawer-item .icon {
+      font-size: 18px;
+      width: 22px;
+      text-align: center;
+    }
 
     .drawer-footer {
       padding: 16px 20px;
-      border-top: 1px solid rgba(255,255,255,0.06);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
     }
+
     .drawer-logout {
-      display: flex; align-items: center; gap: 12px;
-      cursor: pointer; color: var(--red); font-size: 14px; font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      color: var(--red);
+      font-size: 14px;
+      font-weight: 500;
       padding: 10px;
       border-radius: var(--radius-sm);
       transition: var(--transition);
     }
-    .drawer-logout:hover { background: rgba(224,82,82,0.1); }
+
+    .drawer-logout:hover {
+      background: rgba(224, 82, 82, 0.1);
+    }
 
     /* ═══════════════════════════════════════════
        MAIN LAYOUT
@@ -249,7 +338,10 @@
       max-width: 480px;
       margin: 0 auto;
     }
-    .page.active { display: block; }
+
+    .page.active {
+      display: block;
+    }
 
     /* ═══════════════════════════════════════════
        AUTH PAGE
@@ -261,7 +353,10 @@
       justify-content: center;
       padding: 40px 24px;
     }
-    #page-auth.active { display: flex; }
+
+    #page-auth.active {
+      display: flex;
+    }
 
     .auth-logo {
       font-family: var(--font-display);
@@ -271,6 +366,7 @@
       line-height: 1;
       text-align: center;
     }
+
     .auth-tagline {
       color: var(--white-dim);
       font-size: 13px;
@@ -279,24 +375,28 @@
       margin-top: 6px;
       text-align: center;
     }
+
     .auth-scissors {
       font-size: 48px;
       margin: 28px 0 24px;
       filter: sepia(1) hue-rotate(10deg) saturate(2);
     }
+
     .auth-card {
       background: var(--black-card);
-      border: 1px solid rgba(201,168,76,0.2);
+      border: 1px solid rgba(201, 168, 76, 0.2);
       border-radius: var(--radius-lg);
       padding: 28px 24px;
       width: 100%;
       max-width: 360px;
     }
+
     .auth-card h2 {
       font-size: 18px;
       font-weight: 600;
       margin-bottom: 6px;
     }
+
     .auth-card p {
       font-size: 13px;
       color: var(--white-dim);
@@ -307,7 +407,10 @@
     /* ═══════════════════════════════════════════
        FORM ELEMENTS
     ═══════════════════════════════════════════ */
-    .form-group { margin-bottom: 16px; }
+    .form-group {
+      margin-bottom: 16px;
+    }
+
     .form-label {
       display: block;
       font-size: 12px;
@@ -317,11 +420,12 @@
       color: var(--white-dim);
       margin-bottom: 8px;
     }
+
     .form-input {
       width: 100%;
       padding: 13px 16px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: var(--radius-sm);
       color: var(--white);
       font-size: 15px;
@@ -329,13 +433,21 @@
       transition: var(--transition);
       outline: none;
     }
+
     .form-input:focus {
       border-color: var(--gold);
-      background: rgba(201,168,76,0.05);
-      box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+      background: rgba(201, 168, 76, 0.05);
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1);
     }
-    .form-input::placeholder { color: var(--white-dim); }
-    .form-input:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .form-input::placeholder {
+      color: var(--white-dim);
+    }
+
+    .form-input:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
 
     select.form-input {
       cursor: pointer;
@@ -345,7 +457,11 @@
       background-position: right 14px center;
       padding-right: 40px;
     }
-    select.form-input option { background: var(--black-card); color: var(--white); }
+
+    select.form-input option {
+      background: var(--black-card);
+      color: var(--white);
+    }
 
     textarea.form-input {
       resize: vertical;
@@ -372,12 +488,17 @@
       width: 100%;
       letter-spacing: 0.5px;
     }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
 
     .btn-gold {
       background: var(--gold);
       color: var(--black);
     }
+
     .btn-gold:hover:not(:disabled) {
       background: var(--gold-light);
       transform: translateY(-1px);
@@ -387,25 +508,32 @@
     .btn-outline {
       background: transparent;
       color: var(--gold);
-      border: 1px solid rgba(201,168,76,0.4);
+      border: 1px solid rgba(201, 168, 76, 0.4);
     }
+
     .btn-outline:hover:not(:disabled) {
-      background: rgba(201,168,76,0.08);
+      background: rgba(201, 168, 76, 0.08);
       border-color: var(--gold);
     }
 
     .btn-ghost {
-      background: rgba(255,255,255,0.05);
+      background: rgba(255, 255, 255, 0.05);
       color: var(--white);
     }
-    .btn-ghost:hover:not(:disabled) { background: rgba(255,255,255,0.1); }
+
+    .btn-ghost:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.1);
+    }
 
     .btn-danger {
-      background: rgba(224,82,82,0.15);
+      background: rgba(224, 82, 82, 0.15);
       color: var(--red);
-      border: 1px solid rgba(224,82,82,0.3);
+      border: 1px solid rgba(224, 82, 82, 0.3);
     }
-    .btn-danger:hover:not(:disabled) { background: rgba(224,82,82,0.25); }
+
+    .btn-danger:hover:not(:disabled) {
+      background: rgba(224, 82, 82, 0.25);
+    }
 
     .btn-sm {
       padding: 8px 14px;
@@ -420,12 +548,16 @@
       display: flex;
       gap: 8px;
     }
+
     .phone-ddi {
       width: 80px;
       flex-shrink: 0;
       text-align: center;
     }
-    .phone-number { flex: 1; }
+
+    .phone-number {
+      flex: 1;
+    }
 
     /* OTP */
     .otp-wrap {
@@ -433,23 +565,26 @@
       gap: 8px;
       justify-content: center;
     }
+
     .otp-digit {
-      width: 44px; height: 52px;
+      width: 44px;
+      height: 52px;
       text-align: center;
       font-size: 22px;
       font-weight: 700;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: var(--radius-sm);
       color: var(--white);
       font-family: var(--font-body);
       outline: none;
       transition: var(--transition);
     }
+
     .otp-digit:focus {
       border-color: var(--gold);
-      background: rgba(201,168,76,0.08);
-      box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+      background: rgba(201, 168, 76, 0.08);
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.12);
     }
 
     /* ═══════════════════════════════════════════
@@ -458,12 +593,17 @@
     .page-header {
       margin-bottom: 24px;
     }
+
     .page-header h1 {
       font-size: 26px;
       font-weight: 700;
       line-height: 1.2;
     }
-    .page-header h1 span { color: var(--gold); }
+
+    .page-header h1 span {
+      color: var(--gold);
+    }
+
     .page-header p {
       font-size: 13px;
       color: var(--white-dim);
@@ -478,7 +618,7 @@
       color: var(--white-dim);
       margin-bottom: 14px;
       padding-bottom: 8px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     /* ═══════════════════════════════════════════
@@ -486,15 +626,19 @@
     ═══════════════════════════════════════════ */
     .card {
       background: var(--black-card);
-      border: 1px solid rgba(255,255,255,0.07);
+      border: 1px solid rgba(255, 255, 255, 0.07);
       border-radius: var(--radius-md);
       padding: 18px;
       transition: var(--transition);
     }
-    .card:hover { border-color: rgba(201,168,76,0.2); }
+
+    .card:hover {
+      border-color: rgba(201, 168, 76, 0.2);
+    }
+
     .card.selected {
       border-color: var(--gold);
-      background: rgba(201,168,76,0.06);
+      background: rgba(201, 168, 76, 0.06);
       box-shadow: var(--shadow-gold);
     }
 
@@ -502,22 +646,25 @@
        HOME / DASHBOARD
     ═══════════════════════════════════════════ */
     .hero-section {
-      background: linear-gradient(135deg, var(--black-card) 0%, rgba(201,168,76,0.08) 100%);
-      border: 1px solid rgba(201,168,76,0.2);
+      background: linear-gradient(135deg, var(--black-card) 0%, rgba(201, 168, 76, 0.08) 100%);
+      border: 1px solid rgba(201, 168, 76, 0.2);
       border-radius: var(--radius-lg);
       padding: 28px 22px;
       margin-bottom: 24px;
       position: relative;
       overflow: hidden;
     }
+
     .hero-section::before {
       content: '✂';
       position: absolute;
-      right: 20px; top: 50%;
+      right: 20px;
+      top: 50%;
       transform: translateY(-50%);
       font-size: 60px;
       opacity: 0.06;
     }
+
     .hero-greeting {
       font-size: 13px;
       color: var(--gold);
@@ -526,12 +673,14 @@
       font-weight: 500;
       margin-bottom: 6px;
     }
+
     .hero-name {
       font-family: var(--font-display);
       font-size: 36px;
       letter-spacing: 2px;
       line-height: 1;
     }
+
     .hero-sub {
       font-size: 13px;
       color: var(--white-dim);
@@ -545,52 +694,75 @@
       gap: 12px;
       margin-bottom: 28px;
     }
+
     .quick-action {
       background: var(--black-card);
-      border: 1px solid rgba(255,255,255,0.07);
+      border: 1px solid rgba(255, 255, 255, 0.07);
       border-radius: var(--radius-md);
       padding: 18px 16px;
       cursor: pointer;
       transition: var(--transition);
       text-align: center;
     }
+
     .quick-action:hover {
-      border-color: rgba(201,168,76,0.3);
+      border-color: rgba(201, 168, 76, 0.3);
       background: var(--black-hover);
       transform: translateY(-2px);
     }
-    .quick-action .qa-icon { font-size: 28px; margin-bottom: 10px; }
-    .quick-action .qa-label { font-size: 13px; font-weight: 600; }
-    .quick-action .qa-sub { font-size: 11px; color: var(--white-dim); margin-top: 4px; }
+
+    .quick-action .qa-icon {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .quick-action .qa-label {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .quick-action .qa-sub {
+      font-size: 11px;
+      color: var(--white-dim);
+      margin-top: 4px;
+    }
 
     /* ═══════════════════════════════════════════
        CALENDAR
     ═══════════════════════════════════════════ */
     .calendar-wrap {
       background: var(--black-card);
-      border: 1px solid rgba(255,255,255,0.07);
+      border: 1px solid rgba(255, 255, 255, 0.07);
       border-radius: var(--radius-md);
       padding: 20px;
       margin-bottom: 20px;
     }
+
     .calendar-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 18px;
     }
+
     .calendar-month {
       font-size: 16px;
       font-weight: 600;
       text-transform: capitalize;
     }
+
     .calendar-nav {
-      display: flex; gap: 8px;
+      display: flex;
+      gap: 8px;
     }
+
     .cal-btn {
-      width: 32px; height: 32px;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(255,255,255,0.06);
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.06);
       border: none;
       border-radius: 6px;
       color: var(--white);
@@ -598,13 +770,18 @@
       font-size: 14px;
       transition: var(--transition);
     }
-    .cal-btn:hover { background: rgba(201,168,76,0.15); color: var(--gold); }
+
+    .cal-btn:hover {
+      background: rgba(201, 168, 76, 0.15);
+      color: var(--gold);
+    }
 
     .calendar-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       gap: 4px;
     }
+
     .cal-day-label {
       text-align: center;
       font-size: 10px;
@@ -613,6 +790,7 @@
       color: var(--white-dim);
       padding: 4px 0 8px;
     }
+
     .cal-day {
       aspect-ratio: 1;
       display: flex;
@@ -624,43 +802,67 @@
       transition: var(--transition);
       position: relative;
     }
-    .cal-day.empty { pointer-events: none; }
-    .cal-day.past { opacity: 0.3; pointer-events: none; }
-    .cal-day.unavailable { opacity: 0.3; pointer-events: none; }
+
+    .cal-day.empty {
+      pointer-events: none;
+    }
+
+    .cal-day.past {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .cal-day.unavailable {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
     .cal-day.available:hover {
-      background: rgba(201,168,76,0.15);
+      background: rgba(201, 168, 76, 0.15);
       color: var(--gold);
     }
+
     .cal-day.has-slots::after {
       content: '';
       position: absolute;
-      bottom: 4px; left: 50%;
+      bottom: 4px;
+      left: 50%;
       transform: translateX(-50%);
-      width: 4px; height: 4px;
+      width: 4px;
+      height: 4px;
       background: var(--gold);
       border-radius: 50%;
     }
+
     .cal-day.selected {
       background: var(--gold);
       color: var(--black);
       font-weight: 700;
     }
-    .cal-day.selected::after { background: var(--black); }
+
+    .cal-day.selected::after {
+      background: var(--black);
+    }
+
     .cal-day.today {
-      border: 1px solid rgba(201,168,76,0.5);
+      border: 1px solid rgba(201, 168, 76, 0.5);
     }
 
     /* TIME SLOTS */
-    .slots-wrap { margin-bottom: 20px; }
+    .slots-wrap {
+      margin-bottom: 20px;
+    }
+
     .slots-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
     }
+
     .slot {
       padding: 11px 8px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: var(--radius-sm);
       text-align: center;
       font-size: 13px;
@@ -668,13 +870,19 @@
       cursor: pointer;
       transition: var(--transition);
     }
-    .slot:hover { background: rgba(201,168,76,0.1); border-color: rgba(201,168,76,0.4); }
+
+    .slot:hover {
+      background: rgba(201, 168, 76, 0.1);
+      border-color: rgba(201, 168, 76, 0.4);
+    }
+
     .slot.selected {
-      background: rgba(201,168,76,0.15);
+      background: rgba(201, 168, 76, 0.15);
       border-color: var(--gold);
       color: var(--gold);
       font-weight: 700;
     }
+
     .slot.booked {
       opacity: 0.3;
       pointer-events: none;
@@ -684,10 +892,15 @@
     /* ═══════════════════════════════════════════
        SERVICES
     ═══════════════════════════════════════════ */
-    .service-list { display: flex; flex-direction: column; gap: 10px; }
+    .service-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
     .service-card {
       background: var(--black-card);
-      border: 1px solid rgba(255,255,255,0.07);
+      border: 1px solid rgba(255, 255, 255, 0.07);
       border-radius: var(--radius-md);
       padding: 16px;
       cursor: pointer;
@@ -696,36 +909,71 @@
       align-items: center;
       gap: 14px;
     }
-    .service-card:hover { border-color: rgba(201,168,76,0.3); background: var(--black-hover); }
-    .service-card.selected { border-color: var(--gold); background: rgba(201,168,76,0.06); }
+
+    .service-card:hover {
+      border-color: rgba(201, 168, 76, 0.3);
+      background: var(--black-hover);
+    }
+
+    .service-card.selected {
+      border-color: var(--gold);
+      background: rgba(201, 168, 76, 0.06);
+    }
 
     .service-icon {
-      width: 46px; height: 46px;
-      background: rgba(201,168,76,0.1);
+      width: 46px;
+      height: 46px;
+      background: rgba(201, 168, 76, 0.1);
       border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 22px;
       flex-shrink: 0;
     }
-    .service-info { flex: 1; }
-    .service-name { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
-    .service-desc { font-size: 12px; color: var(--white-dim); line-height: 1.4; }
-    .service-duration { font-size: 11px; color: var(--white-dim); margin-top: 4px; }
+
+    .service-info {
+      flex: 1;
+    }
+
+    .service-name {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .service-desc {
+      font-size: 12px;
+      color: var(--white-dim);
+      line-height: 1.4;
+    }
+
+    .service-duration {
+      font-size: 11px;
+      color: var(--white-dim);
+      margin-top: 4px;
+    }
+
     .service-price {
       font-size: 17px;
       font-weight: 700;
       color: var(--gold);
       flex-shrink: 0;
     }
+
     .service-check {
-      width: 20px; height: 20px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.2);
-      display: flex; align-items: center; justify-content: center;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 10px;
       transition: var(--transition);
       flex-shrink: 0;
     }
+
     .service-card.selected .service-check {
       background: var(--gold);
       border-color: var(--gold);
@@ -736,17 +984,19 @@
        BOOKING SUMMARY
     ═══════════════════════════════════════════ */
     .booking-summary {
-      background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, rgba(201,168,76,0.03) 100%);
-      border: 1px solid rgba(201,168,76,0.25);
+      background: linear-gradient(135deg, rgba(201, 168, 76, 0.08) 0%, rgba(201, 168, 76, 0.03) 100%);
+      border: 1px solid rgba(201, 168, 76, 0.25);
       border-radius: var(--radius-lg);
       padding: 24px 20px;
       margin-bottom: 24px;
     }
+
     .summary-icon {
       font-size: 40px;
       text-align: center;
       margin-bottom: 16px;
     }
+
     .summary-title {
       font-family: var(--font-display);
       font-size: 28px;
@@ -754,42 +1004,64 @@
       text-align: center;
       margin-bottom: 20px;
     }
+
     .summary-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 10px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
-    .summary-row:last-child { border-bottom: none; }
+
+    .summary-row:last-child {
+      border-bottom: none;
+    }
+
     .summary-label {
       font-size: 12px;
       color: var(--white-dim);
       text-transform: uppercase;
       letter-spacing: 1px;
     }
-    .summary-value { font-size: 14px; font-weight: 600; }
-    .summary-value.gold { color: var(--gold); font-size: 18px; }
+
+    .summary-value {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .summary-value.gold {
+      color: var(--gold);
+      font-size: 18px;
+    }
 
     /* ═══════════════════════════════════════════
        APPOINTMENTS LIST
     ═══════════════════════════════════════════ */
     .appointment-card {
       background: var(--black-card);
-      border: 1px solid rgba(255,255,255,0.07);
+      border: 1px solid rgba(255, 255, 255, 0.07);
       border-radius: var(--radius-md);
       padding: 16px;
       margin-bottom: 10px;
       transition: var(--transition);
     }
-    .appointment-card:hover { border-color: rgba(201,168,76,0.2); }
+
+    .appointment-card:hover {
+      border-color: rgba(201, 168, 76, 0.2);
+    }
+
     .appt-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 10px;
     }
-    .appt-service { font-size: 15px; font-weight: 600; }
+
+    .appt-service {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
     .appt-status {
       font-size: 11px;
       font-weight: 600;
@@ -797,16 +1069,33 @@
       border-radius: 20px;
       letter-spacing: 0.5px;
     }
-    .status-pending { background: rgba(255,193,7,0.15); color: #ffc107; }
-    .status-confirmed { background: rgba(76,175,122,0.15); color: var(--green); }
-    .status-cancelled { background: rgba(224,82,82,0.15); color: var(--red); }
-    .status-completed { background: rgba(255,255,255,0.08); color: var(--white-dim); }
+
+    .status-pending {
+      background: rgba(255, 193, 7, 0.15);
+      color: #ffc107;
+    }
+
+    .status-confirmed {
+      background: rgba(76, 175, 122, 0.15);
+      color: var(--green);
+    }
+
+    .status-cancelled {
+      background: rgba(224, 82, 82, 0.15);
+      color: var(--red);
+    }
+
+    .status-completed {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--white-dim);
+    }
 
     .appt-meta {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
     }
+
     .appt-meta-item {
       display: flex;
       align-items: center;
@@ -814,9 +1103,18 @@
       font-size: 12px;
       color: var(--white-dim);
     }
-    .appt-price { font-size: 15px; font-weight: 700; color: var(--gold); }
 
-    .appt-client { font-size: 13px; color: var(--white-dim); margin-top: 8px; }
+    .appt-price {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .appt-client {
+      font-size: 13px;
+      color: var(--white-dim);
+      margin-top: 8px;
+    }
 
     /* ═══════════════════════════════════════════
        GALLERY
@@ -826,6 +1124,7 @@
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
     }
+
     .gallery-item {
       aspect-ratio: 1;
       border-radius: var(--radius-md);
@@ -833,40 +1132,55 @@
       position: relative;
       cursor: pointer;
       background: var(--black-card);
-      border: 1px solid rgba(255,255,255,0.07);
+      border: 1px solid rgba(255, 255, 255, 0.07);
     }
+
     .gallery-item img {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       transition: transform 0.4s ease;
     }
-    .gallery-item:hover img { transform: scale(1.05); }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
     .gallery-item-label {
       position: absolute;
-      bottom: 0; left: 0; right: 0;
-      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
       padding: 16px 10px 10px;
       font-size: 11px;
       font-weight: 600;
     }
+
     .gallery-item-empty {
       aspect-ratio: 1;
       border-radius: var(--radius-md);
-      border: 2px dashed rgba(255,255,255,0.1);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
+      border: 2px dashed rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       gap: 8px;
       cursor: pointer;
       transition: var(--transition);
       color: var(--white-dim);
       font-size: 12px;
     }
+
     .gallery-item-empty:hover {
       border-color: var(--gold);
       color: var(--gold);
-      background: rgba(201,168,76,0.04);
+      background: rgba(201, 168, 76, 0.04);
     }
-    .gallery-item-empty .icon { font-size: 28px; }
+
+    .gallery-item-empty .icon {
+      font-size: 28px;
+    }
 
     /* ═══════════════════════════════════════════
        ADMIN — PANELS
@@ -878,6 +1192,7 @@
       overflow-x: auto;
       padding-bottom: 2px;
     }
+
     .admin-tab {
       padding: 8px 16px;
       border-radius: 20px;
@@ -886,17 +1201,23 @@
       cursor: pointer;
       transition: var(--transition);
       white-space: nowrap;
-      background: rgba(255,255,255,0.05);
+      background: rgba(255, 255, 255, 0.05);
       color: var(--white-dim);
       border: none;
     }
+
     .admin-tab.active {
       background: var(--gold);
       color: var(--black);
     }
 
-    .admin-panel { display: none; }
-    .admin-panel.active { display: block; }
+    .admin-panel {
+      display: none;
+    }
+
+    .admin-panel.active {
+      display: block;
+    }
 
     /* STATS GRID */
     .stats-grid {
@@ -905,12 +1226,14 @@
       gap: 12px;
       margin-bottom: 22px;
     }
+
     .stat-card {
       background: var(--black-card);
-      border: 1px solid rgba(255,255,255,0.07);
+      border: 1px solid rgba(255, 255, 255, 0.07);
       border-radius: var(--radius-md);
       padding: 16px;
     }
+
     .stat-value {
       font-family: var(--font-display);
       font-size: 30px;
@@ -918,6 +1241,7 @@
       color: var(--gold);
       line-height: 1;
     }
+
     .stat-label {
       font-size: 11px;
       color: var(--white-dim);
@@ -928,7 +1252,7 @@
     /* SERVICE FORM */
     .service-admin-item {
       background: var(--black-card);
-      border: 1px solid rgba(255,255,255,0.07);
+      border: 1px solid rgba(255, 255, 255, 0.07);
       border-radius: var(--radius-md);
       padding: 14px;
       margin-bottom: 8px;
@@ -936,16 +1260,35 @@
       align-items: center;
       gap: 12px;
     }
-    .sai-icon { font-size: 22px; }
-    .sai-info { flex: 1; }
-    .sai-name { font-size: 14px; font-weight: 600; }
-    .sai-price { font-size: 12px; color: var(--gold); margin-top: 2px; }
-    .sai-actions { display: flex; gap: 6px; }
+
+    .sai-icon {
+      font-size: 22px;
+    }
+
+    .sai-info {
+      flex: 1;
+    }
+
+    .sai-name {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .sai-price {
+      font-size: 12px;
+      color: var(--gold);
+      margin-top: 2px;
+    }
+
+    .sai-actions {
+      display: flex;
+      gap: 6px;
+    }
 
     /* PRODUCT ITEM */
     .product-item {
       background: var(--black-card);
-      border: 1px solid rgba(255,255,255,0.07);
+      border: 1px solid rgba(255, 255, 255, 0.07);
       border-radius: var(--radius-md);
       padding: 14px;
       margin-bottom: 8px;
@@ -953,28 +1296,59 @@
       align-items: center;
       gap: 12px;
     }
-    .pi-icon { font-size: 24px; }
-    .pi-info { flex: 1; }
-    .pi-name { font-size: 14px; font-weight: 600; }
-    .pi-meta { font-size: 11px; color: var(--white-dim); margin-top: 3px; }
-    .pi-stock { font-size: 12px; color: var(--green); }
-    .pi-stock.low { color: var(--red); }
+
+    .pi-icon {
+      font-size: 24px;
+    }
+
+    .pi-info {
+      flex: 1;
+    }
+
+    .pi-name {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .pi-meta {
+      font-size: 11px;
+      color: var(--white-dim);
+      margin-top: 3px;
+    }
+
+    .pi-stock {
+      font-size: 12px;
+      color: var(--green);
+    }
+
+    .pi-stock.low {
+      color: var(--red);
+    }
 
     /* ═══════════════════════════════════════════
        MODAL
     ═══════════════════════════════════════════ */
     .modal-overlay {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.7);
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
       z-index: 2000;
-      display: flex; align-items: flex-end; justify-content: center;
-      opacity: 0; pointer-events: none;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
       transition: opacity var(--transition);
     }
-    .modal-overlay.show { opacity: 1; pointer-events: all; }
+
+    .modal-overlay.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
     .modal {
       background: var(--black-soft);
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: var(--radius-lg) var(--radius-lg) 0 0;
       padding: 28px 20px 40px;
       width: 100%;
@@ -982,22 +1356,36 @@
       max-height: 85dvh;
       overflow-y: auto;
       transform: translateY(20px);
-      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .modal-overlay.show .modal { transform: translateY(0); }
+
+    .modal-overlay.show .modal {
+      transform: translateY(0);
+    }
+
     .modal-handle {
-      width: 36px; height: 4px;
-      background: rgba(255,255,255,0.15);
+      width: 36px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.15);
       border-radius: 2px;
       margin: 0 auto 20px;
     }
+
     .modal-title {
       font-size: 18px;
       font-weight: 700;
       margin-bottom: 20px;
     }
-    .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
-    .modal-actions .btn { flex: 1; }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .modal-actions .btn {
+      flex: 1;
+    }
 
     /* ═══════════════════════════════════════════
        TOAST
@@ -1005,26 +1393,64 @@
     #toast-container {
       position: fixed;
       top: calc(var(--header-h) + 12px);
-      left: 50%; transform: translateX(-50%);
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 9999;
-      display: flex; flex-direction: column; gap: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
       pointer-events: none;
       width: calc(100% - 32px);
       max-width: 420px;
     }
+
     .toast {
       padding: 12px 16px;
       border-radius: var(--radius-sm);
       font-size: 13px;
       font-weight: 500;
       animation: toastIn 0.3s ease, toastOut 0.3s ease 2.7s forwards;
-      display: flex; align-items: center; gap: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-    .toast-success { background: rgba(76,175,122,0.95); color: #fff; }
-    .toast-error   { background: rgba(224,82,82,0.95);  color: #fff; }
-    .toast-info    { background: rgba(201,168,76,0.95);  color: var(--black); }
-    @keyframes toastIn  { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
-    @keyframes toastOut { from { opacity:1; } to { opacity:0; } }
+
+    .toast-success {
+      background: rgba(76, 175, 122, 0.95);
+      color: #fff;
+    }
+
+    .toast-error {
+      background: rgba(224, 82, 82, 0.95);
+      color: #fff;
+    }
+
+    .toast-info {
+      background: rgba(201, 168, 76, 0.95);
+      color: var(--black);
+    }
+
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateY(-8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes toastOut {
+      from {
+        opacity: 1;
+      }
+
+      to {
+        opacity: 0;
+      }
+    }
 
     /* ═══════════════════════════════════════════
        STEP INDICATOR
@@ -1035,26 +1461,47 @@
       margin-bottom: 24px;
       gap: 0;
     }
+
     .step {
-      display: flex; align-items: center; gap: 6px;
-      font-size: 11px; font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
       color: var(--white-dim);
     }
+
     .step-num {
-      width: 24px; height: 24px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.08);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 11px; font-weight: 700;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
       transition: var(--transition);
     }
-    .step.active .step-num { background: var(--gold); color: var(--black); }
-    .step.done .step-num { background: var(--green); color: #fff; }
-    .step.active { color: var(--white); }
+
+    .step.active .step-num {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    .step.done .step-num {
+      background: var(--green);
+      color: #fff;
+    }
+
+    .step.active {
+      color: var(--white);
+    }
+
     .step-line {
       flex: 1;
       height: 1px;
-      background: rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.08);
       margin: 0 6px;
     }
 
@@ -1066,15 +1513,28 @@
       padding: 40px 20px;
       color: var(--white-dim);
     }
-    .empty-icon { font-size: 44px; margin-bottom: 12px; opacity: 0.4; }
-    .empty-text { font-size: 14px; margin-bottom: 6px; color: var(--white); }
-    .empty-sub { font-size: 12px; }
+
+    .empty-icon {
+      font-size: 44px;
+      margin-bottom: 12px;
+      opacity: 0.4;
+    }
+
+    .empty-text {
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: var(--white);
+    }
+
+    .empty-sub {
+      font-size: 12px;
+    }
 
     /* ═══════════════════════════════════════════
        UPLOAD AREA
     ═══════════════════════════════════════════ */
     .upload-area {
-      border: 2px dashed rgba(201,168,76,0.3);
+      border: 2px dashed rgba(201, 168, 76, 0.3);
       border-radius: var(--radius-md);
       padding: 30px 20px;
       text-align: center;
@@ -1082,15 +1542,32 @@
       transition: var(--transition);
       margin-bottom: 16px;
     }
-    .upload-area:hover, .upload-area.drag-over {
+
+    .upload-area:hover,
+    .upload-area.drag-over {
       border-color: var(--gold);
-      background: rgba(201,168,76,0.04);
+      background: rgba(201, 168, 76, 0.04);
     }
-    .upload-icon { font-size: 36px; margin-bottom: 10px; }
-    .upload-text { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
-    .upload-sub { font-size: 12px; color: var(--white-dim); }
+
+    .upload-icon {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .upload-text {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .upload-sub {
+      font-size: 12px;
+      color: var(--white-dim);
+    }
+
     .upload-preview {
-      width: 100%; height: 160px;
+      width: 100%;
+      height: 160px;
       object-fit: cover;
       border-radius: var(--radius-sm);
       margin-top: 12px;
@@ -1100,21 +1577,27 @@
        SPINNER
     ═══════════════════════════════════════════ */
     .spinner {
-      width: 20px; height: 20px;
-      border: 2px solid rgba(255,255,255,0.2);
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
       border-top-color: currentColor;
       border-radius: 50%;
       animation: spin 0.6s linear infinite;
       display: inline-block;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
     /* ═══════════════════════════════════════════
        MISC
     ═══════════════════════════════════════════ */
     .divider {
       height: 1px;
-      background: rgba(255,255,255,0.06);
+      background: rgba(255, 255, 255, 0.06);
       margin: 20px 0;
     }
 
@@ -1127,971 +1610,1047 @@
       font-size: 11px;
       font-weight: 600;
     }
-    .tag-gold { background: rgba(201,168,76,0.15); color: var(--gold); }
-    .tag-green { background: rgba(76,175,122,0.15); color: var(--green); }
+
+    .tag-gold {
+      background: rgba(201, 168, 76, 0.15);
+      color: var(--gold);
+    }
+
+    .tag-green {
+      background: rgba(76, 175, 122, 0.15);
+      color: var(--green);
+    }
 
     .lightbox {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.92);
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
       z-index: 3000;
       display: none;
       align-items: center;
       justify-content: center;
       padding: 20px;
     }
-    .lightbox.show { display: flex; }
+
+    .lightbox.show {
+      display: flex;
+    }
+
     .lightbox img {
-      max-width: 100%; max-height: 80dvh;
+      max-width: 100%;
+      max-height: 80dvh;
       border-radius: var(--radius-md);
       object-fit: contain;
     }
+
     .lightbox-close {
-      position: absolute; top: 20px; right: 20px;
-      font-size: 28px; cursor: pointer;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 28px;
+      cursor: pointer;
       color: var(--white);
-      width: 44px; height: 44px;
-      background: rgba(255,255,255,0.1);
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     /* recaptcha */
-    #recaptcha-container { margin: 16px 0; }
+    #recaptcha-container {
+      margin: 16px 0;
+    }
 
-    .text-center { text-align: center; }
-    .text-gold { color: var(--gold); }
-    .text-dim { color: var(--white-dim); }
-    .mt-8 { margin-top: 8px; }
-    .mt-12 { margin-top: 12px; }
-    .mt-16 { margin-top: 16px; }
-    .mb-16 { margin-bottom: 16px; }
-    .flex { display: flex; }
-    .items-center { align-items: center; }
-    .justify-between { justify-content: space-between; }
-    .gap-8 { gap: 8px; }
-    .gap-12 { gap: 12px; }
-    .font-bold { font-weight: 700; }
-    .hidden { display: none !important; }
+    .text-center {
+      text-align: center;
+    }
+
+    .text-gold {
+      color: var(--gold);
+    }
+
+    .text-dim {
+      color: var(--white-dim);
+    }
+
+    .mt-8 {
+      margin-top: 8px;
+    }
+
+    .mt-12 {
+      margin-top: 12px;
+    }
+
+    .mt-16 {
+      margin-top: 16px;
+    }
+
+    .mb-16 {
+      margin-bottom: 16px;
+    }
+
+    .flex {
+      display: flex;
+    }
+
+    .items-center {
+      align-items: center;
+    }
+
+    .justify-between {
+      justify-content: space-between;
+    }
+
+    .gap-8 {
+      gap: 8px;
+    }
+
+    .gap-12 {
+      gap: 12px;
+    }
+
+    .font-bold {
+      font-weight: 700;
+    }
+
+    .hidden {
+      display: none !important;
+    }
 
     /* PWA safe area */
     @supports (padding-bottom: env(safe-area-inset-bottom)) {
-      .page { padding-bottom: calc(40px + env(safe-area-inset-bottom)); }
-      #drawer { padding-bottom: env(safe-area-inset-bottom); }
+      .page {
+        padding-bottom: calc(40px + env(safe-area-inset-bottom));
+      }
+
+      #drawer {
+        padding-bottom: env(safe-area-inset-bottom);
+      }
     }
   </style>
 </head>
+
 <body>
 
-<!-- ═══════════════ TOAST CONTAINER ═══════════════ -->
-<div id="toast-container"></div>
+  <!-- ═══════════════ TOAST CONTAINER ═══════════════ -->
+  <div id="toast-container"></div>
 
-<!-- ═══════════════ HEADER ═══════════════ -->
-<header id="header">
-  <div class="header-logo" onclick="goHome()">BARBER<span>PRO</span></div>
-  <div class="header-right">
-    <span class="version-badge">v1.0.0</span>
-    <div class="hamburger" id="hamburger" onclick="toggleDrawer()">
-      <span></span><span></span><span></span>
+  <!-- ═══════════════ HEADER ═══════════════ -->
+  <header id="header">
+    <div class="header-logo" onclick="goHome()">BARBER<span>PRO</span></div>
+    <div class="header-right">
+      <span class="version-badge">v1.0.0</span>
+      <div class="hamburger" id="hamburger" onclick="toggleDrawer()">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
 
-<!-- ═══════════════ OVERLAY ═══════════════ -->
-<div id="overlay" onclick="closeDrawer()"></div>
+  <!-- ═══════════════ OVERLAY ═══════════════ -->
+  <div id="overlay" onclick="closeDrawer()"></div>
 
-<!-- ═══════════════ DRAWER ═══════════════ -->
-<nav id="drawer">
-  <div class="drawer-header">
-    <div class="drawer-title">MENU</div>
-    <div class="drawer-close" onclick="closeDrawer()">✕</div>
-  </div>
-  <div id="drawer-user-info" class="drawer-user-info hidden">
-    <div class="drawer-user-name" id="drawer-name">Usuário</div>
-    <div class="drawer-user-phone" id="drawer-phone">+55 11 99999-9999</div>
-  </div>
-  <nav class="drawer-nav">
-    <div class="drawer-section-label">Navegação</div>
-    <div class="drawer-item" onclick="navTo('home')"><span class="icon">🏠</span> Início</div>
-    <div class="drawer-item" onclick="navTo('booking')"><span class="icon">📅</span> Agendar</div>
-    <div class="drawer-item" onclick="navTo('appointments')"><span class="icon">📋</span> Meus Agendamentos</div>
-    <div class="drawer-item" onclick="navTo('gallery')"><span class="icon">📸</span> Galeria de Trabalhos</div>
-    <div id="admin-menu-section" class="hidden">
-      <div class="drawer-section-label">Administração</div>
-      <div class="drawer-item" onclick="navTo('admin')"><span class="icon">⚙️</span> Painel Admin</div>
+  <!-- ═══════════════ DRAWER ═══════════════ -->
+  <nav id="drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">MENU</div>
+      <div class="drawer-close" onclick="closeDrawer()">✕</div>
+    </div>
+    <div id="drawer-user-info" class="drawer-user-info hidden">
+      <div class="drawer-user-name" id="drawer-name">Usuário</div>
+      <div class="drawer-user-phone" id="drawer-phone">+55 11 99999-9999</div>
+    </div>
+    <nav class="drawer-nav">
+      <div class="drawer-section-label">Navegação</div>
+      <div class="drawer-item" onclick="navTo('home')"><span class="icon">🏠</span> Início</div>
+      <div class="drawer-item" onclick="navTo('booking')"><span class="icon">📅</span> Agendar</div>
+      <div class="drawer-item" onclick="navTo('appointments')"><span class="icon">📋</span> Meus Agendamentos</div>
+      <div class="drawer-item" onclick="navTo('gallery')"><span class="icon">📸</span> Galeria de Trabalhos</div>
+      <div id="admin-menu-section" class="hidden">
+        <div class="drawer-section-label">Administração</div>
+        <div class="drawer-item" onclick="navTo('admin')"><span class="icon">⚙️</span> Painel Admin</div>
+      </div>
+    </nav>
+    <div class="drawer-footer">
+      <div class="drawer-logout" id="logout-btn" onclick="logout()">
+        <span>🚪</span> Sair da Conta
+      </div>
     </div>
   </nav>
-  <div class="drawer-footer">
-    <div class="drawer-logout" id="logout-btn" onclick="logout()">
-      <span>🚪</span> Sair da Conta
-    </div>
+
+  <!-- ═══════════════ LIGHTBOX ═══════════════ -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <div class="lightbox-close">✕</div>
+    <img id="lightbox-img" src="" alt="Foto do trabalho" />
   </div>
-</nav>
 
-<!-- ═══════════════ LIGHTBOX ═══════════════ -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <div class="lightbox-close">✕</div>
-  <img id="lightbox-img" src="" alt="Foto do trabalho" />
-</div>
+  <!-- ═══════════════ APP ═══════════════ -->
+  <div id="app">
 
-<!-- ═══════════════ APP ═══════════════ -->
-<div id="app">
+    <!-- ════════════ PAGE: AUTH ════════════ -->
+    <section class="page active" id="page-auth">
+      <div class="auth-logo">BARBERPRO</div>
+      <div class="auth-tagline">Estilo &amp; Precisão</div>
+      <div class="auth-scissors">✂️</div>
 
-  <!-- ════════════ PAGE: AUTH ════════════ -->
-  <section class="page active" id="page-auth">
-    <div class="auth-logo">BARBERPRO</div>
-    <div class="auth-tagline">Estilo &amp; Precisão</div>
-    <div class="auth-scissors">✂️</div>
+      <!-- STEP 1: Phone -->
+      <div class="auth-card" id="auth-step-phone">
+        <h2>Bem-vindo!</h2>
+        <p>Digite seu número de telefone para entrar ou criar sua conta.</p>
+        <div class="form-group">
+          <label class="form-label">Seu Telefone</label>
+          <div class="phone-input-wrap">
+            <input class="form-input phone-ddi" type="text" value="+55" id="phone-ddi" maxlength="4" />
+            <input class="form-input phone-number" type="tel" placeholder="(11) 99999-9999" id="phone-number"
+              maxlength="15" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Seu Nome</label>
+          <input class="form-input" type="text" id="user-name-input" placeholder="Como prefere ser chamado?" />
+        </div>
+        <div id="recaptcha-container"></div>
+        <button class="btn btn-gold" id="btn-send-code" onclick="sendPhoneCode()">
+          Receber Código SMS
+        </button>
+        <p class="text-center mt-12 text-dim" style="font-size:11px">
+          Ao continuar, você concorda com nossos Termos de Uso.
+        </p>
+      </div>
 
-    <!-- STEP 1: Phone -->
-    <div class="auth-card" id="auth-step-phone">
-      <h2>Bem-vindo!</h2>
-      <p>Digite seu número de telefone para entrar ou criar sua conta.</p>
-      <div class="form-group">
-        <label class="form-label">Seu Telefone</label>
-        <div class="phone-input-wrap">
-          <input class="form-input phone-ddi" type="text" value="+55" id="phone-ddi" maxlength="4" />
-          <input class="form-input phone-number" type="tel" placeholder="(11) 99999-9999" id="phone-number" maxlength="15" />
+      <!-- STEP 2: OTP -->
+      <div class="auth-card hidden" id="auth-step-otp">
+        <h2>Código de Verificação</h2>
+        <p id="otp-desc">Digite o código de 6 dígitos enviado para <strong></strong></p>
+        <div class="form-group">
+          <div class="otp-wrap" id="otp-inputs">
+            <input class="otp-digit" type="tel" maxlength="1" data-idx="0" />
+            <input class="otp-digit" type="tel" maxlength="1" data-idx="1" />
+            <input class="otp-digit" type="tel" maxlength="1" data-idx="2" />
+            <input class="otp-digit" type="tel" maxlength="1" data-idx="3" />
+            <input class="otp-digit" type="tel" maxlength="1" data-idx="4" />
+            <input class="otp-digit" type="tel" maxlength="1" data-idx="5" />
+          </div>
+        </div>
+        <button class="btn btn-gold" id="btn-verify-otp" onclick="verifyOTP()">Verificar Código</button>
+        <div class="mt-12 text-center">
+          <button class="btn btn-ghost btn-sm" onclick="backToPhone()">← Usar outro número</button>
         </div>
       </div>
-      <div class="form-group">
-        <label class="form-label">Seu Nome</label>
-        <input class="form-input" type="text" id="user-name-input" placeholder="Como prefere ser chamado?" />
-      </div>
-      <div id="recaptcha-container"></div>
-      <button class="btn btn-gold" id="btn-send-code" onclick="sendPhoneCode()">
-        Receber Código SMS
-      </button>
-      <p class="text-center mt-12 text-dim" style="font-size:11px">
-        Ao continuar, você concorda com nossos Termos de Uso.
-      </p>
-    </div>
+    </section>
 
-    <!-- STEP 2: OTP -->
-    <div class="auth-card hidden" id="auth-step-otp">
-      <h2>Código de Verificação</h2>
-      <p id="otp-desc">Digite o código de 6 dígitos enviado para <strong></strong></p>
-      <div class="form-group">
-        <div class="otp-wrap" id="otp-inputs">
-          <input class="otp-digit" type="tel" maxlength="1" data-idx="0" />
-          <input class="otp-digit" type="tel" maxlength="1" data-idx="1" />
-          <input class="otp-digit" type="tel" maxlength="1" data-idx="2" />
-          <input class="otp-digit" type="tel" maxlength="1" data-idx="3" />
-          <input class="otp-digit" type="tel" maxlength="1" data-idx="4" />
-          <input class="otp-digit" type="tel" maxlength="1" data-idx="5" />
+    <!-- ════════════ PAGE: HOME ════════════ -->
+    <section class="page" id="page-home">
+      <div class="hero-section">
+        <div class="hero-greeting">✂ Olá,</div>
+        <div class="hero-name" id="home-username">Rafao</div>
+        <div class="hero-sub">Pronto para agendar o próximo corte? Escolha o melhor horário para você.</div>
+      </div>
+
+      <div class="quick-actions">
+        <div class="quick-action" onclick="navTo('booking')">
+          <div class="qa-icon">📅</div>
+          <div class="qa-label">Agendar</div>
+          <div class="qa-sub">Escolha dia &amp; serviço</div>
+        </div>
+        <div class="quick-action" onclick="navTo('appointments')">
+          <div class="qa-icon">📋</div>
+          <div class="qa-label">Agendamentos</div>
+          <div class="qa-sub">Ver histórico</div>
+        </div>
+        <div class="quick-action" onclick="navTo('gallery')">
+          <div class="qa-icon">📸</div>
+          <div class="qa-label">Galeria</div>
+          <div class="qa-sub">Ver trabalhos</div>
+        </div>
+        <div class="quick-action" id="admin-quick-action" onclick="navTo('admin')" style="display:none">
+          <div class="qa-icon">⚙️</div>
+          <div class="qa-label">Admin</div>
+          <div class="qa-sub">Gerenciar tudo</div>
         </div>
       </div>
-      <button class="btn btn-gold" id="btn-verify-otp" onclick="verifyOTP()">Verificar Código</button>
-      <div class="mt-12 text-center">
-        <button class="btn btn-ghost btn-sm" onclick="backToPhone()">← Usar outro número</button>
-      </div>
-    </div>
-  </section>
 
-  <!-- ════════════ PAGE: HOME ════════════ -->
-  <section class="page" id="page-home">
-    <div class="hero-section">
-      <div class="hero-greeting">✂ Olá,</div>
-      <div class="hero-name" id="home-username">Rafao</div>
-      <div class="hero-sub">Pronto para agendar o próximo corte? Escolha o melhor horário para você.</div>
-    </div>
+      <div class="section-title">Próximos Agendamentos</div>
+      <div id="home-upcoming"></div>
+    </section>
 
-    <div class="quick-actions">
-      <div class="quick-action" onclick="navTo('booking')">
-        <div class="qa-icon">📅</div>
-        <div class="qa-label">Agendar</div>
-        <div class="qa-sub">Escolha dia &amp; serviço</div>
+    <!-- ════════════ PAGE: BOOKING ════════════ -->
+    <section class="page" id="page-booking">
+      <div class="page-header">
+        <h1>Novo <span>Agendamento</span></h1>
+        <p>Selecione a data, horário e serviço desejado</p>
       </div>
-      <div class="quick-action" onclick="navTo('appointments')">
-        <div class="qa-icon">📋</div>
-        <div class="qa-label">Agendamentos</div>
-        <div class="qa-sub">Ver histórico</div>
-      </div>
-      <div class="quick-action" onclick="navTo('gallery')">
-        <div class="qa-icon">📸</div>
-        <div class="qa-label">Galeria</div>
-        <div class="qa-sub">Ver trabalhos</div>
-      </div>
-      <div class="quick-action" id="admin-quick-action" onclick="navTo('admin')" style="display:none">
-        <div class="qa-icon">⚙️</div>
-        <div class="qa-label">Admin</div>
-        <div class="qa-sub">Gerenciar tudo</div>
-      </div>
-    </div>
 
-    <div class="section-title">Próximos Agendamentos</div>
-    <div id="home-upcoming"></div>
-  </section>
-
-  <!-- ════════════ PAGE: BOOKING ════════════ -->
-  <section class="page" id="page-booking">
-    <div class="page-header">
-      <h1>Novo <span>Agendamento</span></h1>
-      <p>Selecione a data, horário e serviço desejado</p>
-    </div>
-
-    <!-- STEP INDICATOR -->
-    <div class="steps" id="booking-steps">
-      <div class="step active" id="bstep-1">
-        <div class="step-num">1</div>
-        <span>Data</span>
-      </div>
-      <div class="step-line"></div>
-      <div class="step" id="bstep-2">
-        <div class="step-num">2</div>
-        <span>Horário</span>
-      </div>
-      <div class="step-line"></div>
-      <div class="step" id="bstep-3">
-        <div class="step-num">3</div>
-        <span>Serviço</span>
-      </div>
-      <div class="step-line"></div>
-      <div class="step" id="bstep-4">
-        <div class="step-num">4</div>
-        <span>Confirmar</span>
-      </div>
-    </div>
-
-    <!-- STEP 1: Calendar -->
-    <div id="booking-step-1">
-      <div class="calendar-wrap">
-        <div class="calendar-header">
-          <button class="cal-btn" onclick="prevMonth()">‹</button>
-          <div class="calendar-month" id="cal-month-label">Junho 2025</div>
-          <button class="cal-btn" onclick="nextMonth()">›</button>
+      <!-- STEP INDICATOR -->
+      <div class="steps" id="booking-steps">
+        <div class="step active" id="bstep-1">
+          <div class="step-num">1</div>
+          <span>Data</span>
         </div>
-        <div class="calendar-grid" id="calendar-grid"></div>
+        <div class="step-line"></div>
+        <div class="step" id="bstep-2">
+          <div class="step-num">2</div>
+          <span>Horário</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step" id="bstep-3">
+          <div class="step-num">3</div>
+          <span>Serviço</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step" id="bstep-4">
+          <div class="step-num">4</div>
+          <span>Confirmar</span>
+        </div>
       </div>
-      <button class="btn btn-gold" id="btn-next-step1" onclick="bookingStep(2)" disabled>
-        Próximo → Escolher Horário
-      </button>
-    </div>
 
-    <!-- STEP 2: Time slots -->
-    <div id="booking-step-2" class="hidden">
-      <div class="section-title" id="slots-date-label">Horários — Sábado, 14 Jun</div>
-      <div class="slots-wrap">
-        <div class="slots-grid" id="slots-grid"></div>
-      </div>
-      <div class="flex gap-8 mt-16">
-        <button class="btn btn-ghost" onclick="bookingStep(1)" style="width:auto;padding:13px 18px">← Voltar</button>
-        <button class="btn btn-gold" id="btn-next-step2" onclick="bookingStep(3)" disabled>
-          Próximo → Serviços
+      <!-- STEP 1: Calendar -->
+      <div id="booking-step-1">
+        <div class="calendar-wrap">
+          <div class="calendar-header">
+            <button class="cal-btn" onclick="prevMonth()">‹</button>
+            <div class="calendar-month" id="cal-month-label">Junho 2025</div>
+            <button class="cal-btn" onclick="nextMonth()">›</button>
+          </div>
+          <div class="calendar-grid" id="calendar-grid"></div>
+        </div>
+        <button class="btn btn-gold" id="btn-next-step1" onclick="bookingStep(2)" disabled>
+          Próximo → Escolher Horário
         </button>
       </div>
-    </div>
 
-    <!-- STEP 3: Services -->
-    <div id="booking-step-3" class="hidden">
-      <div class="section-title">Escolha o Serviço</div>
-      <div class="service-list" id="booking-services-list"></div>
-      <div class="flex gap-8 mt-16">
-        <button class="btn btn-ghost" onclick="bookingStep(2)" style="width:auto;padding:13px 18px">← Voltar</button>
-        <button class="btn btn-gold" id="btn-next-step3" onclick="bookingStep(4)" disabled>
-          Próximo → Confirmar
-        </button>
-      </div>
-    </div>
-
-    <!-- STEP 4: Summary & Confirm -->
-    <div id="booking-step-4" class="hidden">
-      <div class="booking-summary">
-        <div class="summary-icon">✂️</div>
-        <div class="summary-title">RESUMO</div>
-        <div class="summary-row">
-          <span class="summary-label">📅 Data</span>
-          <span class="summary-value" id="sum-date">—</span>
+      <!-- STEP 2: Time slots -->
+      <div id="booking-step-2" class="hidden">
+        <div class="section-title" id="slots-date-label">Horários — Sábado, 14 Jun</div>
+        <div class="slots-wrap">
+          <div class="slots-grid" id="slots-grid"></div>
         </div>
-        <div class="summary-row">
-          <span class="summary-label">🕐 Horário</span>
-          <span class="summary-value" id="sum-time">—</span>
-        </div>
-        <div class="summary-row">
-          <span class="summary-label">💈 Serviço</span>
-          <span class="summary-value" id="sum-service">—</span>
-        </div>
-        <div class="summary-row">
-          <span class="summary-label">⏱ Duração</span>
-          <span class="summary-value" id="sum-duration">—</span>
-        </div>
-        <div class="summary-row">
-          <span class="summary-label">💰 Valor</span>
-          <span class="summary-value gold" id="sum-price">—</span>
+        <div class="flex gap-8 mt-16">
+          <button class="btn btn-ghost" onclick="bookingStep(1)" style="width:auto;padding:13px 18px">← Voltar</button>
+          <button class="btn btn-gold" id="btn-next-step2" onclick="bookingStep(3)" disabled>
+            Próximo → Serviços
+          </button>
         </div>
       </div>
-      <div class="form-group">
-        <label class="form-label">Observações (opcional)</label>
-        <textarea class="form-input" id="booking-notes" placeholder="Ex: Prefiro franja mais comprida, cor específica..."></textarea>
+
+      <!-- STEP 3: Services -->
+      <div id="booking-step-3" class="hidden">
+        <div class="section-title">Escolha o Serviço</div>
+        <div class="service-list" id="booking-services-list"></div>
+        <div class="flex gap-8 mt-16">
+          <button class="btn btn-ghost" onclick="bookingStep(2)" style="width:auto;padding:13px 18px">← Voltar</button>
+          <button class="btn btn-gold" id="btn-next-step3" onclick="bookingStep(4)" disabled>
+            Próximo → Confirmar
+          </button>
+        </div>
       </div>
-      <div class="flex gap-8">
-        <button class="btn btn-ghost" onclick="bookingStep(3)" style="width:auto;padding:13px 18px">← Voltar</button>
-        <button class="btn btn-gold" id="btn-confirm-booking" onclick="confirmBooking()">
-          ✅ Confirmar Agendamento
-        </button>
+
+      <!-- STEP 4: Summary & Confirm -->
+      <div id="booking-step-4" class="hidden">
+        <div class="booking-summary">
+          <div class="summary-icon">✂️</div>
+          <div class="summary-title">RESUMO</div>
+          <div class="summary-row">
+            <span class="summary-label">📅 Data</span>
+            <span class="summary-value" id="sum-date">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">🕐 Horário</span>
+            <span class="summary-value" id="sum-time">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">💈 Serviço</span>
+            <span class="summary-value" id="sum-service">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">⏱ Duração</span>
+            <span class="summary-value" id="sum-duration">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">💰 Valor</span>
+            <span class="summary-value gold" id="sum-price">—</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Observações (opcional)</label>
+          <textarea class="form-input" id="booking-notes"
+            placeholder="Ex: Prefiro franja mais comprida, cor específica..."></textarea>
+        </div>
+        <div class="flex gap-8">
+          <button class="btn btn-ghost" onclick="bookingStep(3)" style="width:auto;padding:13px 18px">← Voltar</button>
+          <button class="btn btn-gold" id="btn-confirm-booking" onclick="confirmBooking()">
+            ✅ Confirmar Agendamento
+          </button>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ════════════ PAGE: APPOINTMENTS ════════════ -->
-  <section class="page" id="page-appointments">
-    <div class="page-header">
-      <h1>Meus <span>Agendamentos</span></h1>
-      <p>Histórico completo das suas visitas</p>
-    </div>
-    <div id="appointments-list"></div>
-  </section>
-
-  <!-- ════════════ PAGE: GALLERY ════════════ -->
-  <section class="page" id="page-gallery">
-    <div class="page-header">
-      <h1>Galeria de <span>Trabalhos</span></h1>
-      <p>Fotos reais dos nossos serviços</p>
-    </div>
-    <div class="gallery-grid" id="gallery-grid"></div>
-  </section>
-
-  <!-- ════════════ PAGE: ADMIN ════════════ -->
-  <section class="page" id="page-admin">
-    <div class="page-header">
-      <h1>Painel <span>Admin</span></h1>
-      <p>Gerencie serviços, agendamentos e galeria</p>
-    </div>
-
-    <div class="admin-tabs">
-      <button class="admin-tab active" onclick="adminTab('dashboard')">📊 Dashboard</button>
-      <button class="admin-tab" onclick="adminTab('services')">✂️ Serviços</button>
-      <button class="admin-tab" onclick="adminTab('products')">🧴 Produtos</button>
-      <button class="admin-tab" onclick="adminTab('bookings')">📅 Agendamentos</button>
-      <button class="admin-tab" onclick="adminTab('gallery')">📸 Galeria</button>
-    </div>
-
-    <!-- DASHBOARD PANEL -->
-    <div class="admin-panel active" id="apanel-dashboard">
-      <div class="stats-grid" id="admin-stats"></div>
-      <div class="section-title">Agendamentos de Hoje</div>
-      <div id="admin-today-list"></div>
-    </div>
-
-    <!-- SERVICES PANEL -->
-    <div class="admin-panel" id="apanel-services">
-      <button class="btn btn-gold mb-16" onclick="openServiceModal()">+ Novo Serviço</button>
-      <div id="admin-services-list"></div>
-    </div>
-
-    <!-- PRODUCTS PANEL -->
-    <div class="admin-panel" id="apanel-products">
-      <button class="btn btn-gold mb-16" onclick="openProductModal()">+ Novo Produto</button>
-      <div id="admin-products-list"></div>
-    </div>
-
-    <!-- BOOKINGS PANEL (All) -->
-    <div class="admin-panel" id="apanel-bookings">
-      <div class="form-group">
-        <select class="form-input" id="admin-booking-filter" onchange="renderAdminBookings()">
-          <option value="all">Todos os agendamentos</option>
-          <option value="pending">Pendentes</option>
-          <option value="confirmed">Confirmados</option>
-          <option value="completed">Concluídos</option>
-          <option value="cancelled">Cancelados</option>
-        </select>
+    <!-- ════════════ PAGE: APPOINTMENTS ════════════ -->
+    <section class="page" id="page-appointments">
+      <div class="page-header">
+        <h1>Meus <span>Agendamentos</span></h1>
+        <p>Histórico completo das suas visitas</p>
       </div>
-      <div id="admin-bookings-list"></div>
-    </div>
+      <div id="appointments-list"></div>
+    </section>
 
-    <!-- GALLERY PANEL (Admin) -->
-    <div class="admin-panel" id="apanel-gallery">
-      <div class="upload-area" id="gallery-upload-area" onclick="document.getElementById('gallery-file-input').click()">
-        <div class="upload-icon">📷</div>
-        <div class="upload-text">Adicionar Foto</div>
-        <div class="upload-sub">Clique ou arraste uma imagem (JPG, PNG, WEBP)</div>
+    <!-- ════════════ PAGE: GALLERY ════════════ -->
+    <section class="page" id="page-gallery">
+      <div class="page-header">
+        <h1>Galeria de <span>Trabalhos</span></h1>
+        <p>Fotos reais dos nossos serviços</p>
       </div>
-      <input type="file" id="gallery-file-input" accept="image/*" class="hidden" onchange="handleGalleryUpload(event)" />
-      <div class="form-group">
-        <input class="form-input" type="text" id="gallery-caption" placeholder="Legenda da foto (ex: Corte Degradê)" />
-      </div>
-      <div id="gallery-preview-wrap" class="hidden">
-        <img class="upload-preview" id="gallery-preview" src="" alt="Preview" />
-      </div>
-      <button class="btn btn-gold mb-16" id="btn-upload-gallery" onclick="uploadGalleryPhoto()">📤 Publicar Foto</button>
-      <div class="divider"></div>
-      <div class="section-title">Fotos Publicadas</div>
-      <div class="gallery-grid" id="admin-gallery-grid"></div>
-    </div>
-  </section>
+      <div class="gallery-grid" id="gallery-grid"></div>
+    </section>
 
-</div><!-- /app -->
+    <!-- ════════════ PAGE: ADMIN ════════════ -->
+    <section class="page" id="page-admin">
+      <div class="page-header">
+        <h1>Painel <span>Admin</span></h1>
+        <p>Gerencie serviços, agendamentos e galeria</p>
+      </div>
 
-<!-- ═══════════════════════════════════════════
+      <div class="admin-tabs">
+        <button class="admin-tab active" onclick="adminTab('dashboard')">📊 Dashboard</button>
+        <button class="admin-tab" onclick="adminTab('services')">✂️ Serviços</button>
+        <button class="admin-tab" onclick="adminTab('products')">🧴 Produtos</button>
+        <button class="admin-tab" onclick="adminTab('bookings')">📅 Agendamentos</button>
+        <button class="admin-tab" onclick="adminTab('gallery')">📸 Galeria</button>
+      </div>
+
+      <!-- DASHBOARD PANEL -->
+      <div class="admin-panel active" id="apanel-dashboard">
+        <div class="stats-grid" id="admin-stats"></div>
+        <div class="section-title">Agendamentos de Hoje</div>
+        <div id="admin-today-list"></div>
+      </div>
+
+      <!-- SERVICES PANEL -->
+      <div class="admin-panel" id="apanel-services">
+        <button class="btn btn-gold mb-16" onclick="openServiceModal()">+ Novo Serviço</button>
+        <div id="admin-services-list"></div>
+      </div>
+
+      <!-- PRODUCTS PANEL -->
+      <div class="admin-panel" id="apanel-products">
+        <button class="btn btn-gold mb-16" onclick="openProductModal()">+ Novo Produto</button>
+        <div id="admin-products-list"></div>
+      </div>
+
+      <!-- BOOKINGS PANEL (All) -->
+      <div class="admin-panel" id="apanel-bookings">
+        <div class="form-group">
+          <select class="form-input" id="admin-booking-filter" onchange="renderAdminBookings()">
+            <option value="all">Todos os agendamentos</option>
+            <option value="pending">Pendentes</option>
+            <option value="confirmed">Confirmados</option>
+            <option value="completed">Concluídos</option>
+            <option value="cancelled">Cancelados</option>
+          </select>
+        </div>
+        <div id="admin-bookings-list"></div>
+      </div>
+
+      <!-- GALLERY PANEL (Admin) -->
+      <div class="admin-panel" id="apanel-gallery">
+        <div class="upload-area" id="gallery-upload-area"
+          onclick="document.getElementById('gallery-file-input').click()">
+          <div class="upload-icon">📷</div>
+          <div class="upload-text">Adicionar Foto</div>
+          <div class="upload-sub">Clique ou arraste uma imagem (JPG, PNG, WEBP)</div>
+        </div>
+        <input type="file" id="gallery-file-input" accept="image/*" class="hidden"
+          onchange="handleGalleryUpload(event)" />
+        <div class="form-group">
+          <input class="form-input" type="text" id="gallery-caption"
+            placeholder="Legenda da foto (ex: Corte Degradê)" />
+        </div>
+        <div id="gallery-preview-wrap" class="hidden">
+          <img class="upload-preview" id="gallery-preview" src="" alt="Preview" />
+        </div>
+        <button class="btn btn-gold mb-16" id="btn-upload-gallery" onclick="uploadGalleryPhoto()">📤 Publicar
+          Foto</button>
+        <div class="divider"></div>
+        <div class="section-title">Fotos Publicadas</div>
+        <div class="gallery-grid" id="admin-gallery-grid"></div>
+      </div>
+    </section>
+
+  </div><!-- /app -->
+
+  <!-- ═══════════════════════════════════════════
      MODALS
 ═══════════════════════════════════════════ -->
 
-<!-- SERVICE MODAL -->
-<div class="modal-overlay" id="modal-service">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-title" id="service-modal-title">Novo Serviço</div>
-    <input type="hidden" id="service-edit-id" />
-    <div class="form-group">
-      <label class="form-label">Nome do Serviço</label>
-      <input class="form-input" type="text" id="svc-name" placeholder="Ex: Corte + Barba" />
-    </div>
-    <div class="form-group">
-      <label class="form-label">Categoria</label>
-      <select class="form-input" id="svc-category">
-        <option value="corte">✂️ Corte</option>
-        <option value="barba">🪒 Barba</option>
-        <option value="combo">💈 Combo</option>
-        <option value="unhas">💅 Unhas</option>
-        <option value="pes">🦶 Pés</option>
-        <option value="outro">⭐ Outro</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label class="form-label">Descrição</label>
-      <textarea class="form-input" id="svc-desc" placeholder="Descreva o serviço..."></textarea>
-    </div>
-    <div class="form-group">
-      <label class="form-label">Valor (R$)</label>
-      <input class="form-input" type="number" id="svc-price" placeholder="0.00" step="0.50" min="0" />
-    </div>
-    <div class="form-group">
-      <label class="form-label">Duração (minutos)</label>
-      <select class="form-input" id="svc-duration">
-        <option value="30">30 min</option>
-        <option value="45">45 min</option>
-        <option value="60" selected>1 hora</option>
-        <option value="90">1h 30min</option>
-        <option value="120">2 horas</option>
-      </select>
-    </div>
-    <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="closeModal('modal-service')">Cancelar</button>
-      <button class="btn btn-gold" onclick="saveService()">Salvar Serviço</button>
-    </div>
-  </div>
-</div>
-
-<!-- PRODUCT MODAL -->
-<div class="modal-overlay" id="modal-product">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-title" id="product-modal-title">Novo Produto</div>
-    <input type="hidden" id="product-edit-id" />
-    <div class="form-group">
-      <label class="form-label">Nome do Produto</label>
-      <input class="form-input" type="text" id="prod-name" placeholder="Ex: Pomada Modeladora" />
-    </div>
-    <div class="form-group">
-      <label class="form-label">Marca / Fabricante</label>
-      <input class="form-input" type="text" id="prod-brand" placeholder="Ex: American Crew" />
-    </div>
-    <div class="form-group">
-      <label class="form-label">Categoria</label>
-      <select class="form-input" id="prod-category">
-        <option value="pomada">Pomada</option>
-        <option value="shampoo">Shampoo</option>
-        <option value="condicionador">Condicionador</option>
-        <option value="oleo">Óleo de Barba</option>
-        <option value="navalha">Navalha / Lâmina</option>
-        <option value="tintura">Tintura</option>
-        <option value="outro">Outro</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label class="form-label">Preço (R$)</label>
-      <input class="form-input" type="number" id="prod-price" placeholder="0.00" step="0.01" min="0" />
-    </div>
-    <div class="form-group">
-      <label class="form-label">Estoque (unidades)</label>
-      <input class="form-input" type="number" id="prod-stock" placeholder="0" min="0" />
-    </div>
-    <div class="form-group">
-      <label class="form-label">Estoque Mínimo (alerta)</label>
-      <input class="form-input" type="number" id="prod-min-stock" placeholder="5" min="0" value="5" />
-    </div>
-    <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="closeModal('modal-product')">Cancelar</button>
-      <button class="btn btn-gold" onclick="saveProduct()">Salvar Produto</button>
+  <!-- SERVICE MODAL -->
+  <div class="modal-overlay" id="modal-service">
+    <div class="modal">
+      <div class="modal-handle"></div>
+      <div class="modal-title" id="service-modal-title">Novo Serviço</div>
+      <input type="hidden" id="service-edit-id" />
+      <div class="form-group">
+        <label class="form-label">Nome do Serviço</label>
+        <input class="form-input" type="text" id="svc-name" placeholder="Ex: Corte + Barba" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Categoria</label>
+        <select class="form-input" id="svc-category">
+          <option value="corte">✂️ Corte</option>
+          <option value="barba">🪒 Barba</option>
+          <option value="combo">💈 Combo</option>
+          <option value="unhas">💅 Unhas</option>
+          <option value="pes">🦶 Pés</option>
+          <option value="outro">⭐ Outro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Descrição</label>
+        <textarea class="form-input" id="svc-desc" placeholder="Descreva o serviço..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Valor (R$)</label>
+        <input class="form-input" type="number" id="svc-price" placeholder="0.00" step="0.50" min="0" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Duração (minutos)</label>
+        <select class="form-input" id="svc-duration">
+          <option value="30">30 min</option>
+          <option value="45">45 min</option>
+          <option value="60" selected>1 hora</option>
+          <option value="90">1h 30min</option>
+          <option value="120">2 horas</option>
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" onclick="closeModal('modal-service')">Cancelar</button>
+        <button class="btn btn-gold" onclick="saveService()">Salvar Serviço</button>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- BOOKING DETAIL MODAL (admin) -->
-<div class="modal-overlay" id="modal-booking-detail">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-title">Detalhes do Agendamento</div>
-    <div id="booking-detail-content"></div>
-    <div class="modal-actions" id="booking-detail-actions"></div>
+  <!-- PRODUCT MODAL -->
+  <div class="modal-overlay" id="modal-product">
+    <div class="modal">
+      <div class="modal-handle"></div>
+      <div class="modal-title" id="product-modal-title">Novo Produto</div>
+      <input type="hidden" id="product-edit-id" />
+      <div class="form-group">
+        <label class="form-label">Nome do Produto</label>
+        <input class="form-input" type="text" id="prod-name" placeholder="Ex: Pomada Modeladora" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Marca / Fabricante</label>
+        <input class="form-input" type="text" id="prod-brand" placeholder="Ex: American Crew" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Categoria</label>
+        <select class="form-input" id="prod-category">
+          <option value="pomada">Pomada</option>
+          <option value="shampoo">Shampoo</option>
+          <option value="condicionador">Condicionador</option>
+          <option value="oleo">Óleo de Barba</option>
+          <option value="navalha">Navalha / Lâmina</option>
+          <option value="tintura">Tintura</option>
+          <option value="outro">Outro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Preço (R$)</label>
+        <input class="form-input" type="number" id="prod-price" placeholder="0.00" step="0.01" min="0" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Estoque (unidades)</label>
+        <input class="form-input" type="number" id="prod-stock" placeholder="0" min="0" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Estoque Mínimo (alerta)</label>
+        <input class="form-input" type="number" id="prod-min-stock" placeholder="5" min="0" value="5" />
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" onclick="closeModal('modal-product')">Cancelar</button>
+        <button class="btn btn-gold" onclick="saveProduct()">Salvar Produto</button>
+      </div>
+    </div>
   </div>
-</div>
 
-<!-- ═══════════════════════════════════════════
+  <!-- BOOKING DETAIL MODAL (admin) -->
+  <div class="modal-overlay" id="modal-booking-detail">
+    <div class="modal">
+      <div class="modal-handle"></div>
+      <div class="modal-title">Detalhes do Agendamento</div>
+      <div id="booking-detail-content"></div>
+      <div class="modal-actions" id="booking-detail-actions"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
      FIREBASE + APP SCRIPT
 ═══════════════════════════════════════════ -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import {
-  getAuth,
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import {
-  getFirestore,
-  doc, setDoc, getDoc, addDoc, updateDoc, deleteDoc,
-  collection, query, where, orderBy, onSnapshot, getDocs,
-  serverTimestamp, Timestamp
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import {
+      getAuth,
+      RecaptchaVerifier,
+      signInWithPhoneNumber,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import {
+      getFirestore,
+      doc, setDoc, getDoc, addDoc, updateDoc, deleteDoc,
+      collection, query, where, orderBy, onSnapshot, getDocs,
+      serverTimestamp, Timestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-/* ─────────────────────────────────────────
-   🔧 CONFIGURAÇÃO — substitua pelos seus dados
-────────────────────────────────────────── */
-const FIREBASE_CONFIG = {
-  apiKey:            "SUA_API_KEY",
-  authDomain:        "SEU_PROJECT.firebaseapp.com",
-  projectId:         "SEU_PROJECT_ID",
-  storageBucket:     "SEU_PROJECT.appspot.com",
-  messagingSenderId: "SEU_SENDER_ID",
-  appId:             "SEU_APP_ID"
-};
+    /* ─────────────────────────────────────────
+       🔧 CONFIGURAÇÃO — substitua pelos seus dados
+    ────────────────────────────────────────── */
+    const FIREBASE_CONFIG = {
+      apiKey: "AIzaSyDqX8dS8v0eECKcbL5JZCWT5Pa-ARK_IYQ",
+      authDomain: "barberpro-app-99f66.firebaseapp.com",
+      projectId: "barberpro-app-99f66",
+      storageBucket: "barberpro-app-99f66.firebasestorage.app",
+      messagingSenderId: "1077272386910",
+      appId: "1:1077272386910:web:6666752c0e18c51566c3cf"
+    };
 
-const CLOUDINARY_CONFIG = {
-  cloudName:    "SEU_CLOUD_NAME",
-  uploadPreset: "SEU_UPLOAD_PRESET_UNSIGNED"
-};
+    const CLOUDINARY_CONFIG = {
+      cloudName: "dkfvnaw7y",
+      uploadPreset: "e85a1bbf-b9a4-490b-ab3f-153e62bd9ee0"
+    };
 
-// Admin phones (adicione os números autorizados como admin)
-const ADMIN_PHONES = ["+5511999999999"]; // Substitua pelo número do barbeiro
+    // Admin phones (adicione os números autorizados como admin)
+    const ADMIN_PHONES = ["+5511965276642"]; // Substitua pelo número do barbeiro
 
-/* ─────────────────────────────────────────
-   INIT
-────────────────────────────────────────── */
-const fbApp  = initializeApp(FIREBASE_CONFIG);
-const auth   = getAuth(fbApp);
-const db     = getFirestore(fbApp);
+    /* ─────────────────────────────────────────
+       INIT
+    ────────────────────────────────────────── */
+    const fbApp = initializeApp(FIREBASE_CONFIG);
+    const auth = getAuth(fbApp);
+    const db = getFirestore(fbApp);
 
-/* ─────────────────────────────────────────
-   STATE
-────────────────────────────────────────── */
-let currentUser    = null;
-let isAdmin        = false;
-let confirmResult  = null;
-let pendingPhone   = "";
-let pendingName    = "";
+    /* ─────────────────────────────────────────
+       STATE
+    ────────────────────────────────────────── */
+    let currentUser = null;
+    let isAdmin = false;
+    let confirmResult = null;
+    let pendingPhone = "";
+    let pendingName = "";
 
-let calYear        = new Date().getFullYear();
-let calMonth       = new Date().getMonth();
-let selectedDate   = null;
-let selectedSlot   = null;
-let selectedService= null;
-let currentStep    = 1;
-let galleryFileObj = null;
+    let calYear = new Date().getFullYear();
+    let calMonth = new Date().getMonth();
+    let selectedDate = null;
+    let selectedSlot = null;
+    let selectedService = null;
+    let currentStep = 1;
+    let galleryFileObj = null;
 
-let servicesCache  = [];
-let productsCache  = [];
-let allBookings    = [];
+    let servicesCache = [];
+    let productsCache = [];
+    let allBookings = [];
 
-/* ─────────────────────────────────────────
-   EXPOSE GLOBALS (onclick handlers)
-────────────────────────────────────────── */
-window.toggleDrawer        = toggleDrawer;
-window.closeDrawer         = closeDrawer;
-window.navTo               = navTo;
-window.goHome              = () => navTo(currentUser ? 'home' : 'auth');
-window.logout              = logout;
-window.sendPhoneCode       = sendPhoneCode;
-window.verifyOTP           = verifyOTP;
-window.backToPhone         = backToPhone;
-window.prevMonth           = prevMonth;
-window.nextMonth           = nextMonth;
-window.bookingStep         = bookingStep;
-window.confirmBooking      = confirmBooking;
-window.adminTab            = adminTab;
-window.openServiceModal    = openServiceModal;
-window.saveService         = saveService;
-window.openProductModal    = openProductModal;
-window.saveProduct         = saveProduct;
-window.closeModal          = closeModal;
-window.handleGalleryUpload = handleGalleryUpload;
-window.uploadGalleryPhoto  = uploadGalleryPhoto;
-window.renderAdminBookings = renderAdminBookings;
-window.openBookingDetail   = openBookingDetail;
-window.updateBookingStatus = updateBookingStatus;
-window.deleteService       = deleteService;
-window.editService         = editService;
-window.deleteProduct       = deleteProduct;
-window.editProduct         = editProduct;
-window.deleteGalleryPhoto  = deleteGalleryPhoto;
-window.openLightbox        = openLightbox;
-window.closeLightbox       = closeLightbox;
-window.cancelMyBooking     = cancelMyBooking;
+    /* ─────────────────────────────────────────
+       EXPOSE GLOBALS (onclick handlers)
+    ────────────────────────────────────────── */
+    window.toggleDrawer = toggleDrawer;
+    window.closeDrawer = closeDrawer;
+    window.navTo = navTo;
+    window.goHome = () => navTo(currentUser ? 'home' : 'auth');
+    window.logout = logout;
+    window.sendPhoneCode = sendPhoneCode;
+    window.verifyOTP = verifyOTP;
+    window.backToPhone = backToPhone;
+    window.prevMonth = prevMonth;
+    window.nextMonth = nextMonth;
+    window.bookingStep = bookingStep;
+    window.confirmBooking = confirmBooking;
+    window.adminTab = adminTab;
+    window.openServiceModal = openServiceModal;
+    window.saveService = saveService;
+    window.openProductModal = openProductModal;
+    window.saveProduct = saveProduct;
+    window.closeModal = closeModal;
+    window.handleGalleryUpload = handleGalleryUpload;
+    window.uploadGalleryPhoto = uploadGalleryPhoto;
+    window.renderAdminBookings = renderAdminBookings;
+    window.openBookingDetail = openBookingDetail;
+    window.updateBookingStatus = updateBookingStatus;
+    window.deleteService = deleteService;
+    window.editService = editService;
+    window.deleteProduct = deleteProduct;
+    window.editProduct = editProduct;
+    window.deleteGalleryPhoto = deleteGalleryPhoto;
+    window.openLightbox = openLightbox;
+    window.closeLightbox = closeLightbox;
+    window.cancelMyBooking = cancelMyBooking;
 
-/* ─────────────────────────────────────────
-   AUTH STATE
-────────────────────────────────────────── */
-onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    currentUser = user;
-    isAdmin = ADMIN_PHONES.includes(user.phoneNumber);
+    /* ─────────────────────────────────────────
+       AUTH STATE
+    ────────────────────────────────────────── */
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        currentUser = user;
+        isAdmin = ADMIN_PHONES.includes(user.phoneNumber);
 
-    // Upsert user doc
-    const userRef = doc(db, "users", user.uid);
-    const snap    = await getDoc(userRef);
-    const stored  = snap.exists() ? snap.data() : {};
-    await setDoc(userRef, {
-      phone:     user.phoneNumber,
-      name:      pendingName || stored.name || "Cliente",
-      isAdmin,
-      updatedAt: serverTimestamp()
-    }, { merge: true });
+        // Upsert user doc
+        const userRef = doc(db, "users", user.uid);
+        const snap = await getDoc(userRef);
+        const stored = snap.exists() ? snap.data() : {};
+        await setDoc(userRef, {
+          phone: user.phoneNumber,
+          name: pendingName || stored.name || "Cliente",
+          isAdmin,
+          updatedAt: serverTimestamp()
+        }, { merge: true });
 
-    const userName = pendingName || stored.name || "Cliente";
+        const userName = pendingName || stored.name || "Cliente";
 
-    // Update drawer
-    document.getElementById('drawer-name').textContent  = userName;
-    document.getElementById('drawer-phone').textContent = user.phoneNumber;
-    document.getElementById('drawer-user-info').classList.remove('hidden');
-    document.getElementById('home-username').textContent = userName.split(' ')[0];
+        // Update drawer
+        document.getElementById('drawer-name').textContent = userName;
+        document.getElementById('drawer-phone').textContent = user.phoneNumber;
+        document.getElementById('drawer-user-info').classList.remove('hidden');
+        document.getElementById('home-username').textContent = userName.split(' ')[0];
 
-    if (isAdmin) {
-      document.getElementById('admin-menu-section').classList.remove('hidden');
-      document.getElementById('admin-quick-action').style.display = '';
+        if (isAdmin) {
+          document.getElementById('admin-menu-section').classList.remove('hidden');
+          document.getElementById('admin-quick-action').style.display = '';
+        }
+
+        navTo('home');
+        loadData();
+      } else {
+        currentUser = null;
+        isAdmin = false;
+        navTo('auth');
+      }
+    });
+
+    /* ─────────────────────────────────────────
+       NAVIGATION
+    ────────────────────────────────────────── */
+    function navTo(page) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(`page-${page}`).classList.add('active');
+      closeDrawer();
+      window.scrollTo(0, 0);
+
+      // Update active drawer item
+      document.querySelectorAll('.drawer-item').forEach(i => i.classList.remove('active'));
+
+      if (page === 'home') { renderHomeUpcoming(); }
+      if (page === 'booking') { resetBookingFlow(); }
+      if (page === 'appointments') { renderMyAppointments(); }
+      if (page === 'gallery') { renderPublicGallery(); }
+      if (page === 'admin' && isAdmin) { loadAdminData(); }
     }
 
-    navTo('home');
-    loadData();
-  } else {
-    currentUser = null;
-    isAdmin = false;
-    navTo('auth');
-  }
-});
-
-/* ─────────────────────────────────────────
-   NAVIGATION
-────────────────────────────────────────── */
-function navTo(page) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById(`page-${page}`).classList.add('active');
-  closeDrawer();
-  window.scrollTo(0,0);
-
-  // Update active drawer item
-  document.querySelectorAll('.drawer-item').forEach(i => i.classList.remove('active'));
-
-  if (page === 'home')         { renderHomeUpcoming(); }
-  if (page === 'booking')      { resetBookingFlow(); }
-  if (page === 'appointments') { renderMyAppointments(); }
-  if (page === 'gallery')      { renderPublicGallery(); }
-  if (page === 'admin' && isAdmin) { loadAdminData(); }
-}
-
-/* ─────────────────────────────────────────
-   DRAWER
-────────────────────────────────────────── */
-function toggleDrawer() {
-  const drawer    = document.getElementById('drawer');
-  const overlay   = document.getElementById('overlay');
-  const hamburger = document.getElementById('hamburger');
-  const isOpen    = drawer.classList.contains('open');
-  drawer.classList.toggle('open', !isOpen);
-  overlay.classList.toggle('show', !isOpen);
-  hamburger.classList.toggle('open', !isOpen);
-}
-function closeDrawer() {
-  document.getElementById('drawer').classList.remove('open');
-  document.getElementById('overlay').classList.remove('show');
-  document.getElementById('hamburger').classList.remove('open');
-}
-
-/* ─────────────────────────────────────────
-   TOAST
-────────────────────────────────────────── */
-function toast(msg, type = 'info') {
-  const icons = { success:'✅', error:'❌', info:'💈' };
-  const el    = document.createElement('div');
-  el.className = `toast toast-${type}`;
-  el.innerHTML = `<span>${icons[type]}</span> ${msg}`;
-  document.getElementById('toast-container').appendChild(el);
-  setTimeout(() => el.remove(), 3100);
-}
-
-/* ─────────────────────────────────────────
-   AUTH — PHONE
-────────────────────────────────────────── */
-function setupRecaptcha() {
-  if (!window.recaptchaVerifier) {
-    window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-      size: 'invisible',
-      callback: () => {}
-    });
-  }
-}
-
-async function sendPhoneCode() {
-  const ddi    = document.getElementById('phone-ddi').value.trim();
-  const number = document.getElementById('phone-number').value.replace(/\D/g,'');
-  const name   = document.getElementById('user-name-input').value.trim();
-
-  if (!name) { toast('Por favor, informe seu nome', 'error'); return; }
-  if (number.length < 10) { toast('Número de telefone inválido', 'error'); return; }
-
-  pendingPhone = `${ddi}${number}`;
-  pendingName  = name;
-
-  const btn = document.getElementById('btn-send-code');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span> Enviando...';
-
-  try {
-    setupRecaptcha();
-    confirmResult = await signInWithPhoneNumber(auth, pendingPhone, window.recaptchaVerifier);
-    document.getElementById('auth-step-phone').classList.add('hidden');
-    document.getElementById('auth-step-otp').classList.remove('hidden');
-    document.getElementById('otp-desc').innerHTML =
-      `Digite o código de 6 dígitos enviado para <strong>${pendingPhone}</strong>`;
-    setupOTPInputs();
-    toast('Código enviado! Verifique seu SMS', 'success');
-  } catch(e) {
-    console.error(e);
-    toast('Erro ao enviar SMS. Tente novamente.', 'error');
-    window.recaptchaVerifier = null;
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = 'Receber Código SMS';
-  }
-}
-
-function setupOTPInputs() {
-  const inputs = document.querySelectorAll('.otp-digit');
-  inputs.forEach((input, i) => {
-    input.value = '';
-    input.addEventListener('input', (e) => {
-      const val = e.target.value.replace(/\D/g,'');
-      e.target.value = val.slice(-1);
-      if (val && i < inputs.length - 1) inputs[i+1].focus();
-    });
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Backspace' && !input.value && i > 0) inputs[i-1].focus();
-    });
-  });
-  inputs[0].focus();
-}
-
-async function verifyOTP() {
-  const code = Array.from(document.querySelectorAll('.otp-digit')).map(i=>i.value).join('');
-  if (code.length < 6) { toast('Digite os 6 dígitos do código', 'error'); return; }
-
-  const btn = document.getElementById('btn-verify-otp');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span> Verificando...';
-
-  try {
-    await confirmResult.confirm(code);
-    // onAuthStateChanged vai lidar com o resto
-  } catch(e) {
-    toast('Código inválido ou expirado', 'error');
-    btn.disabled = false;
-    btn.innerHTML = 'Verificar Código';
-  }
-}
-
-function backToPhone() {
-  document.getElementById('auth-step-otp').classList.add('hidden');
-  document.getElementById('auth-step-phone').classList.remove('hidden');
-  confirmResult = null;
-}
-
-async function logout() {
-  await signOut(auth);
-  pendingName = '';
-  closeDrawer();
-  navTo('auth');
-  toast('Até logo! 👋', 'info');
-}
-
-/* ─────────────────────────────────────────
-   DATA LOAD
-────────────────────────────────────────── */
-async function loadData() {
-  await loadServices();
-  subscribeBookings();
-}
-
-async function loadServices() {
-  const snap = await getDocs(query(collection(db, 'services'), orderBy('name')));
-  servicesCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-}
-
-function subscribeBookings() {
-  if (!currentUser) return;
-  const q = isAdmin
-    ? query(collection(db, 'bookings'), orderBy('date', 'desc'))
-    : query(collection(db, 'bookings'), where('userId','==', currentUser.uid), orderBy('date','desc'));
-
-  onSnapshot(q, snap => {
-    allBookings = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-  });
-}
-
-/* ─────────────────────────────────────────
-   CALENDAR
-────────────────────────────────────────── */
-const WEEK_DAYS = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-const MONTHS    = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho',
-                   'Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-
-// Operating hours config (days 1–6 = Mon–Sat, 0 = Sun)
-const OPEN_DAYS = [1,2,3,4,5,6]; // Mon–Sat
-const TIME_SLOTS = [
-  '09:00','09:30','10:00','10:30','11:00','11:30',
-  '13:00','13:30','14:00','14:30','15:00','15:30',
-  '16:00','16:30','17:00','17:30','18:00','18:30'
-];
-
-function resetBookingFlow() {
-  selectedDate = null; selectedSlot = null; selectedService = null; currentStep = 1;
-  bookingStep(1);
-  renderCalendar();
-}
-
-function renderCalendar() {
-  const grid  = document.getElementById('calendar-grid');
-  const label = document.getElementById('cal-month-label');
-  label.textContent = `${MONTHS[calMonth]} ${calYear}`;
-  grid.innerHTML = '';
-
-  WEEK_DAYS.forEach(d => {
-    const el = document.createElement('div');
-    el.className = 'cal-day-label';
-    el.textContent = d;
-    grid.appendChild(el);
-  });
-
-  const firstDay = new Date(calYear, calMonth, 1).getDay();
-  const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
-  const today = new Date(); today.setHours(0,0,0,0);
-
-  for (let i = 0; i < firstDay; i++) {
-    const el = document.createElement('div');
-    el.className = 'cal-day empty';
-    grid.appendChild(el);
-  }
-
-  for (let d = 1; d <= daysInMonth; d++) {
-    const date   = new Date(calYear, calMonth, d);
-    const isPast = date < today;
-    const isOpen = OPEN_DAYS.includes(date.getDay());
-    const isToday = date.toDateString() === today.toDateString();
-    const isSelected = selectedDate && date.toDateString() === selectedDate.toDateString();
-
-    const el = document.createElement('div');
-    let cls = 'cal-day';
-    if (isPast)                  cls += ' past';
-    else if (!isOpen)            cls += ' unavailable';
-    else {
-      cls += ' available has-slots';
-      el.onclick = () => selectDate(date);
+    /* ─────────────────────────────────────────
+       DRAWER
+    ────────────────────────────────────────── */
+    function toggleDrawer() {
+      const drawer = document.getElementById('drawer');
+      const overlay = document.getElementById('overlay');
+      const hamburger = document.getElementById('hamburger');
+      const isOpen = drawer.classList.contains('open');
+      drawer.classList.toggle('open', !isOpen);
+      overlay.classList.toggle('show', !isOpen);
+      hamburger.classList.toggle('open', !isOpen);
     }
-    if (isToday)    cls += ' today';
-    if (isSelected) cls += ' selected';
-    el.className = cls;
-    el.textContent = d;
-    grid.appendChild(el);
-  }
-}
-
-function selectDate(date) {
-  selectedDate = date;
-  document.getElementById('btn-next-step1').disabled = false;
-  renderCalendar();
-}
-
-function prevMonth() {
-  calMonth--;
-  if (calMonth < 0) { calMonth = 11; calYear--; }
-  renderCalendar();
-}
-function nextMonth() {
-  calMonth++;
-  if (calMonth > 11) { calMonth = 0; calYear++; }
-  renderCalendar();
-}
-
-/* ─────────────────────────────────────────
-   TIME SLOTS
-────────────────────────────────────────── */
-async function renderSlots() {
-  const grid  = document.getElementById('slots-grid');
-  const label = document.getElementById('slots-date-label');
-  grid.innerHTML = '';
-
-  const dayName = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'][selectedDate.getDay()];
-  const dateStr = selectedDate.toLocaleDateString('pt-BR', { day:'2-digit', month:'short' });
-  label.textContent = `Horários — ${dayName}, ${dateStr}`;
-
-  // Get booked slots for this date
-  const dateKey = selectedDate.toISOString().split('T')[0];
-  const bookedSnap = await getDocs(
-    query(collection(db,'bookings'),
-      where('dateKey','==',dateKey),
-      where('status','in',['pending','confirmed'])
-    )
-  );
-  const booked = bookedSnap.docs.map(d => d.data().time);
-
-  TIME_SLOTS.forEach(slot => {
-    const isBooked = booked.includes(slot);
-    const el = document.createElement('div');
-    el.className = `slot${isBooked ? ' booked' : ''}${selectedSlot === slot ? ' selected' : ''}`;
-    el.textContent = slot;
-    if (!isBooked) {
-      el.onclick = () => selectSlot(slot);
+    function closeDrawer() {
+      document.getElementById('drawer').classList.remove('open');
+      document.getElementById('overlay').classList.remove('show');
+      document.getElementById('hamburger').classList.remove('open');
     }
-    grid.appendChild(el);
-  });
-}
 
-function selectSlot(slot) {
-  selectedSlot = slot;
-  document.getElementById('btn-next-step2').disabled = false;
-  renderSlots();
-}
+    /* ─────────────────────────────────────────
+       TOAST
+    ────────────────────────────────────────── */
+    function toast(msg, type = 'info') {
+      const icons = { success: '✅', error: '❌', info: '💈' };
+      const el = document.createElement('div');
+      el.className = `toast toast-${type}`;
+      el.innerHTML = `<span>${icons[type]}</span> ${msg}`;
+      document.getElementById('toast-container').appendChild(el);
+      setTimeout(() => el.remove(), 3100);
+    }
 
-/* ─────────────────────────────────────────
-   BOOKING STEPS
-────────────────────────────────────────── */
-function bookingStep(step) {
-  currentStep = step;
-  for (let i = 1; i <= 4; i++) {
-    document.getElementById(`booking-step-${i}`).classList.toggle('hidden', i !== step);
-    const bstep = document.getElementById(`bstep-${i}`);
-    bstep.classList.remove('active','done');
-    if (i < step)      bstep.classList.add('done');
-    else if (i === step) bstep.classList.add('active');
-  }
+    /* ─────────────────────────────────────────
+       AUTH — PHONE
+    ────────────────────────────────────────── */
+    function setupRecaptcha() {
+      if (!window.recaptchaVerifier) {
+        window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+          size: 'invisible',
+          callback: () => { }
+        });
+      }
+    }
 
-  if (step === 2) renderSlots();
-  if (step === 3) renderBookingServices();
-  if (step === 4) renderBookingSummary();
-}
+    async function sendPhoneCode() {
+      const ddi = document.getElementById('phone-ddi').value.trim();
+      const number = document.getElementById('phone-number').value.replace(/\D/g, '');
+      const name = document.getElementById('user-name-input').value.trim();
 
-function renderBookingServices() {
-  const list = document.getElementById('booking-services-list');
-  list.innerHTML = '';
-  const icons = { corte:'✂️', barba:'🪒', combo:'💈', unhas:'💅', pes:'🦶', outro:'⭐' };
+      if (!name) { toast('Por favor, informe seu nome', 'error'); return; }
+      if (number.length < 10) { toast('Número de telefone inválido', 'error'); return; }
 
-  if (!servicesCache.length) {
-    list.innerHTML = '<div class="empty-state"><div class="empty-icon">✂️</div><p class="empty-text">Nenhum serviço disponível</p></div>';
-    return;
-  }
+      pendingPhone = `${ddi}${number}`;
+      pendingName = name;
 
-  servicesCache.forEach(svc => {
-    const el = document.createElement('div');
-    el.className = `service-card${selectedService?.id === svc.id ? ' selected' : ''}`;
-    el.innerHTML = `
+      const btn = document.getElementById('btn-send-code');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Enviando...';
+
+      try {
+        setupRecaptcha();
+        confirmResult = await signInWithPhoneNumber(auth, pendingPhone, window.recaptchaVerifier);
+        document.getElementById('auth-step-phone').classList.add('hidden');
+        document.getElementById('auth-step-otp').classList.remove('hidden');
+        document.getElementById('otp-desc').innerHTML =
+          `Digite o código de 6 dígitos enviado para <strong>${pendingPhone}</strong>`;
+        setupOTPInputs();
+        toast('Código enviado! Verifique seu SMS', 'success');
+      } catch (e) {
+        console.error(e);
+        toast('Erro ao enviar SMS. Tente novamente.', 'error');
+        window.recaptchaVerifier = null;
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = 'Receber Código SMS';
+      }
+    }
+
+    function setupOTPInputs() {
+      const inputs = document.querySelectorAll('.otp-digit');
+      inputs.forEach((input, i) => {
+        input.value = '';
+        input.addEventListener('input', (e) => {
+          const val = e.target.value.replace(/\D/g, '');
+          e.target.value = val.slice(-1);
+          if (val && i < inputs.length - 1) inputs[i + 1].focus();
+        });
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace' && !input.value && i > 0) inputs[i - 1].focus();
+        });
+      });
+      inputs[0].focus();
+    }
+
+    async function verifyOTP() {
+      const code = Array.from(document.querySelectorAll('.otp-digit')).map(i => i.value).join('');
+      if (code.length < 6) { toast('Digite os 6 dígitos do código', 'error'); return; }
+
+      const btn = document.getElementById('btn-verify-otp');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Verificando...';
+
+      try {
+        await confirmResult.confirm(code);
+        // onAuthStateChanged vai lidar com o resto
+      } catch (e) {
+        toast('Código inválido ou expirado', 'error');
+        btn.disabled = false;
+        btn.innerHTML = 'Verificar Código';
+      }
+    }
+
+    function backToPhone() {
+      document.getElementById('auth-step-otp').classList.add('hidden');
+      document.getElementById('auth-step-phone').classList.remove('hidden');
+      confirmResult = null;
+    }
+
+    async function logout() {
+      await signOut(auth);
+      pendingName = '';
+      closeDrawer();
+      navTo('auth');
+      toast('Até logo! 👋', 'info');
+    }
+
+    /* ─────────────────────────────────────────
+       DATA LOAD
+    ────────────────────────────────────────── */
+    async function loadData() {
+      await loadServices();
+      subscribeBookings();
+    }
+
+    async function loadServices() {
+      const snap = await getDocs(query(collection(db, 'services'), orderBy('name')));
+      servicesCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    }
+
+    function subscribeBookings() {
+      if (!currentUser) return;
+      const q = isAdmin
+        ? query(collection(db, 'bookings'), orderBy('date', 'desc'))
+        : query(collection(db, 'bookings'), where('userId', '==', currentUser.uid), orderBy('date', 'desc'));
+
+      onSnapshot(q, snap => {
+        allBookings = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      });
+    }
+
+    /* ─────────────────────────────────────────
+       CALENDAR
+    ────────────────────────────────────────── */
+    const WEEK_DAYS = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+    const MONTHS = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+
+    // Operating hours config (days 1–6 = Mon–Sat, 0 = Sun)
+    const OPEN_DAYS = [1, 2, 3, 4, 5, 6]; // Mon–Sat
+    const TIME_SLOTS = [
+      '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
+      '13:00', '13:30', '14:00', '14:30', '15:00', '15:30',
+      '16:00', '16:30', '17:00', '17:30', '18:00', '18:30'
+    ];
+
+    function resetBookingFlow() {
+      selectedDate = null; selectedSlot = null; selectedService = null; currentStep = 1;
+      bookingStep(1);
+      renderCalendar();
+    }
+
+    function renderCalendar() {
+      const grid = document.getElementById('calendar-grid');
+      const label = document.getElementById('cal-month-label');
+      label.textContent = `${MONTHS[calMonth]} ${calYear}`;
+      grid.innerHTML = '';
+
+      WEEK_DAYS.forEach(d => {
+        const el = document.createElement('div');
+        el.className = 'cal-day-label';
+        el.textContent = d;
+        grid.appendChild(el);
+      });
+
+      const firstDay = new Date(calYear, calMonth, 1).getDay();
+      const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+
+      for (let i = 0; i < firstDay; i++) {
+        const el = document.createElement('div');
+        el.className = 'cal-day empty';
+        grid.appendChild(el);
+      }
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const date = new Date(calYear, calMonth, d);
+        const isPast = date < today;
+        const isOpen = OPEN_DAYS.includes(date.getDay());
+        const isToday = date.toDateString() === today.toDateString();
+        const isSelected = selectedDate && date.toDateString() === selectedDate.toDateString();
+
+        const el = document.createElement('div');
+        let cls = 'cal-day';
+        if (isPast) cls += ' past';
+        else if (!isOpen) cls += ' unavailable';
+        else {
+          cls += ' available has-slots';
+          el.onclick = () => selectDate(date);
+        }
+        if (isToday) cls += ' today';
+        if (isSelected) cls += ' selected';
+        el.className = cls;
+        el.textContent = d;
+        grid.appendChild(el);
+      }
+    }
+
+    function selectDate(date) {
+      selectedDate = date;
+      document.getElementById('btn-next-step1').disabled = false;
+      renderCalendar();
+    }
+
+    function prevMonth() {
+      calMonth--;
+      if (calMonth < 0) { calMonth = 11; calYear--; }
+      renderCalendar();
+    }
+    function nextMonth() {
+      calMonth++;
+      if (calMonth > 11) { calMonth = 0; calYear++; }
+      renderCalendar();
+    }
+
+    /* ─────────────────────────────────────────
+       TIME SLOTS
+    ────────────────────────────────────────── */
+    async function renderSlots() {
+      const grid = document.getElementById('slots-grid');
+      const label = document.getElementById('slots-date-label');
+      grid.innerHTML = '';
+
+      const dayName = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'][selectedDate.getDay()];
+      const dateStr = selectedDate.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
+      label.textContent = `Horários — ${dayName}, ${dateStr}`;
+
+      // Get booked slots for this date
+      const dateKey = selectedDate.toISOString().split('T')[0];
+      const bookedSnap = await getDocs(
+        query(collection(db, 'bookings'),
+          where('dateKey', '==', dateKey),
+          where('status', 'in', ['pending', 'confirmed'])
+        )
+      );
+      const booked = bookedSnap.docs.map(d => d.data().time);
+
+      TIME_SLOTS.forEach(slot => {
+        const isBooked = booked.includes(slot);
+        const el = document.createElement('div');
+        el.className = `slot${isBooked ? ' booked' : ''}${selectedSlot === slot ? ' selected' : ''}`;
+        el.textContent = slot;
+        if (!isBooked) {
+          el.onclick = () => selectSlot(slot);
+        }
+        grid.appendChild(el);
+      });
+    }
+
+    function selectSlot(slot) {
+      selectedSlot = slot;
+      document.getElementById('btn-next-step2').disabled = false;
+      renderSlots();
+    }
+
+    /* ─────────────────────────────────────────
+       BOOKING STEPS
+    ────────────────────────────────────────── */
+    function bookingStep(step) {
+      currentStep = step;
+      for (let i = 1; i <= 4; i++) {
+        document.getElementById(`booking-step-${i}`).classList.toggle('hidden', i !== step);
+        const bstep = document.getElementById(`bstep-${i}`);
+        bstep.classList.remove('active', 'done');
+        if (i < step) bstep.classList.add('done');
+        else if (i === step) bstep.classList.add('active');
+      }
+
+      if (step === 2) renderSlots();
+      if (step === 3) renderBookingServices();
+      if (step === 4) renderBookingSummary();
+    }
+
+    function renderBookingServices() {
+      const list = document.getElementById('booking-services-list');
+      list.innerHTML = '';
+      const icons = { corte: '✂️', barba: '🪒', combo: '💈', unhas: '💅', pes: '🦶', outro: '⭐' };
+
+      if (!servicesCache.length) {
+        list.innerHTML = '<div class="empty-state"><div class="empty-icon">✂️</div><p class="empty-text">Nenhum serviço disponível</p></div>';
+        return;
+      }
+
+      servicesCache.forEach(svc => {
+        const el = document.createElement('div');
+        el.className = `service-card${selectedService?.id === svc.id ? ' selected' : ''}`;
+        el.innerHTML = `
       <div class="service-icon">${icons[svc.category] || '⭐'}</div>
       <div class="service-info">
         <div class="service-name">${svc.name}</div>
@@ -2103,125 +2662,125 @@ function renderBookingServices() {
         <div class="service-check">✓</div>
       </div>
     `;
-    el.onclick = () => selectService(svc);
-    list.appendChild(el);
-  });
-}
+        el.onclick = () => selectService(svc);
+        list.appendChild(el);
+      });
+    }
 
-function selectService(svc) {
-  selectedService = svc;
-  document.getElementById('btn-next-step3').disabled = false;
-  renderBookingServices();
-}
+    function selectService(svc) {
+      selectedService = svc;
+      document.getElementById('btn-next-step3').disabled = false;
+      renderBookingServices();
+    }
 
-function renderBookingSummary() {
-  if (!selectedDate || !selectedSlot || !selectedService) return;
-  const dateStr = selectedDate.toLocaleDateString('pt-BR',{ weekday:'long', day:'2-digit', month:'long' });
-  document.getElementById('sum-date').textContent    = dateStr;
-  document.getElementById('sum-time').textContent    = selectedSlot;
-  document.getElementById('sum-service').textContent = selectedService.name;
-  document.getElementById('sum-duration').textContent= `${selectedService.duration} minutos`;
-  document.getElementById('sum-price').textContent   = `R$ ${Number(selectedService.price).toFixed(2)}`;
-}
+    function renderBookingSummary() {
+      if (!selectedDate || !selectedSlot || !selectedService) return;
+      const dateStr = selectedDate.toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long' });
+      document.getElementById('sum-date').textContent = dateStr;
+      document.getElementById('sum-time').textContent = selectedSlot;
+      document.getElementById('sum-service').textContent = selectedService.name;
+      document.getElementById('sum-duration').textContent = `${selectedService.duration} minutos`;
+      document.getElementById('sum-price').textContent = `R$ ${Number(selectedService.price).toFixed(2)}`;
+    }
 
-/* ─────────────────────────────────────────
-   CONFIRM BOOKING
-────────────────────────────────────────── */
-async function confirmBooking() {
-  if (!currentUser || !selectedDate || !selectedSlot || !selectedService) return;
+    /* ─────────────────────────────────────────
+       CONFIRM BOOKING
+    ────────────────────────────────────────── */
+    async function confirmBooking() {
+      if (!currentUser || !selectedDate || !selectedSlot || !selectedService) return;
 
-  const btn = document.getElementById('btn-confirm-booking');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span> Confirmando...';
+      const btn = document.getElementById('btn-confirm-booking');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Confirmando...';
 
-  const dateKey = selectedDate.toISOString().split('T')[0];
-  const notes   = document.getElementById('booking-notes').value.trim();
+      const dateKey = selectedDate.toISOString().split('T')[0];
+      const notes = document.getElementById('booking-notes').value.trim();
 
-  // Double-check slot availability
-  const conflictSnap = await getDocs(
-    query(collection(db,'bookings'),
-      where('dateKey','==',dateKey),
-      where('time','==',selectedSlot),
-      where('status','in',['pending','confirmed'])
-    )
-  );
-  if (!conflictSnap.empty) {
-    toast('Este horário acabou de ser reservado. Escolha outro.', 'error');
-    btn.disabled = false;
-    btn.innerHTML = '✅ Confirmar Agendamento';
-    bookingStep(2);
-    return;
-  }
+      // Double-check slot availability
+      const conflictSnap = await getDocs(
+        query(collection(db, 'bookings'),
+          where('dateKey', '==', dateKey),
+          where('time', '==', selectedSlot),
+          where('status', 'in', ['pending', 'confirmed'])
+        )
+      );
+      if (!conflictSnap.empty) {
+        toast('Este horário acabou de ser reservado. Escolha outro.', 'error');
+        btn.disabled = false;
+        btn.innerHTML = '✅ Confirmar Agendamento';
+        bookingStep(2);
+        return;
+      }
 
-  try {
-    const userSnap = await getDoc(doc(db,'users', currentUser.uid));
-    const userName = userSnap.exists() ? userSnap.data().name : 'Cliente';
+      try {
+        const userSnap = await getDoc(doc(db, 'users', currentUser.uid));
+        const userName = userSnap.exists() ? userSnap.data().name : 'Cliente';
 
-    await addDoc(collection(db,'bookings'), {
-      userId:      currentUser.uid,
-      userPhone:   currentUser.phoneNumber,
-      userName,
-      serviceId:   selectedService.id,
-      serviceName: selectedService.name,
-      servicePrice: selectedService.price,
-      serviceDuration: selectedService.duration,
-      dateKey,
-      date:        Timestamp.fromDate(selectedDate),
-      time:        selectedSlot,
-      notes,
-      status:      'confirmed',
-      createdAt:   serverTimestamp()
-    });
+        await addDoc(collection(db, 'bookings'), {
+          userId: currentUser.uid,
+          userPhone: currentUser.phoneNumber,
+          userName,
+          serviceId: selectedService.id,
+          serviceName: selectedService.name,
+          servicePrice: selectedService.price,
+          serviceDuration: selectedService.duration,
+          dateKey,
+          date: Timestamp.fromDate(selectedDate),
+          time: selectedSlot,
+          notes,
+          status: 'confirmed',
+          createdAt: serverTimestamp()
+        });
 
-    toast('Agendamento confirmado! ✂️', 'success');
-    navTo('appointments');
-  } catch(e) {
-    console.error(e);
-    toast('Erro ao confirmar. Tente novamente.', 'error');
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = '✅ Confirmar Agendamento';
-  }
-}
+        toast('Agendamento confirmado! ✂️', 'success');
+        navTo('appointments');
+      } catch (e) {
+        console.error(e);
+        toast('Erro ao confirmar. Tente novamente.', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '✅ Confirmar Agendamento';
+      }
+    }
 
-/* ─────────────────────────────────────────
-   APPOINTMENTS — CLIENT
-────────────────────────────────────────── */
-async function renderMyAppointments() {
-  const list = document.getElementById('appointments-list');
-  list.innerHTML = '<div class="empty-state"><div class="spinner"></div></div>';
+    /* ─────────────────────────────────────────
+       APPOINTMENTS — CLIENT
+    ────────────────────────────────────────── */
+    async function renderMyAppointments() {
+      const list = document.getElementById('appointments-list');
+      list.innerHTML = '<div class="empty-state"><div class="spinner"></div></div>';
 
-  const snap = await getDocs(
-    query(collection(db,'bookings'),
-      where('userId','==', currentUser.uid),
-      orderBy('date','desc')
-    )
-  );
-  const bookings = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-  renderBookingCards(list, bookings, false);
-}
+      const snap = await getDocs(
+        query(collection(db, 'bookings'),
+          where('userId', '==', currentUser.uid),
+          orderBy('date', 'desc')
+        )
+      );
+      const bookings = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      renderBookingCards(list, bookings, false);
+    }
 
-function renderBookingCards(container, bookings, adminView) {
-  if (!bookings.length) {
-    container.innerHTML = `<div class="empty-state">
+    function renderBookingCards(container, bookings, adminView) {
+      if (!bookings.length) {
+        container.innerHTML = `<div class="empty-state">
       <div class="empty-icon">📅</div>
       <p class="empty-text">Nenhum agendamento encontrado</p>
       <p class="empty-sub">Que tal agendar agora?</p>
     </div>`;
-    return;
-  }
-  container.innerHTML = '';
-  bookings.forEach(b => {
-    const date = b.date?.toDate ? b.date.toDate() : new Date(b.dateKey);
-    const dateStr = date.toLocaleDateString('pt-BR', { weekday:'short', day:'2-digit', month:'short' });
-    const el = document.createElement('div');
-    el.className = 'appointment-card';
-    const statusLabel = { pending:'Pendente', confirmed:'Confirmado', cancelled:'Cancelado', completed:'Concluído' };
-    const statusCls   = { pending:'status-pending', confirmed:'status-confirmed', cancelled:'status-cancelled', completed:'status-completed' };
-    el.innerHTML = `
+        return;
+      }
+      container.innerHTML = '';
+      bookings.forEach(b => {
+        const date = b.date?.toDate ? b.date.toDate() : new Date(b.dateKey);
+        const dateStr = date.toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit', month: 'short' });
+        const el = document.createElement('div');
+        el.className = 'appointment-card';
+        const statusLabel = { pending: 'Pendente', confirmed: 'Confirmado', cancelled: 'Cancelado', completed: 'Concluído' };
+        const statusCls = { pending: 'status-pending', confirmed: 'status-confirmed', cancelled: 'status-cancelled', completed: 'status-completed' };
+        el.innerHTML = `
       <div class="appt-header">
         <div class="appt-service">✂️ ${b.serviceName}</div>
-        <span class="appt-status ${statusCls[b.status]||'status-pending'}">${statusLabel[b.status]||b.status}</span>
+        <span class="appt-status ${statusCls[b.status] || 'status-pending'}">${statusLabel[b.status] || b.status}</span>
       </div>
       <div class="appt-meta">
         <div class="appt-meta-item">📅 ${dateStr}</div>
@@ -2233,129 +2792,129 @@ function renderBookingCards(container, bookings, adminView) {
       ${b.notes ? `<div class="appt-client" style="margin-top:6px">📝 ${b.notes}</div>` : ''}
       <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
         ${adminView ? `<button class="btn btn-outline btn-sm" onclick="openBookingDetail('${b.id}')">Ver Detalhes</button>` : ''}
-        ${!adminView && ['pending','confirmed'].includes(b.status) ? `<button class="btn btn-danger btn-sm" onclick="cancelMyBooking('${b.id}')">Cancelar</button>` : ''}
+        ${!adminView && ['pending', 'confirmed'].includes(b.status) ? `<button class="btn btn-danger btn-sm" onclick="cancelMyBooking('${b.id}')">Cancelar</button>` : ''}
       </div>
     `;
-    container.appendChild(el);
-  });
-}
+        container.appendChild(el);
+      });
+    }
 
-async function cancelMyBooking(id) {
-  if (!confirm('Tem certeza que deseja cancelar este agendamento?')) return;
-  await updateDoc(doc(db,'bookings',id), { status:'cancelled' });
-  toast('Agendamento cancelado.', 'info');
-  renderMyAppointments();
-}
+    async function cancelMyBooking(id) {
+      if (!confirm('Tem certeza que deseja cancelar este agendamento?')) return;
+      await updateDoc(doc(db, 'bookings', id), { status: 'cancelled' });
+      toast('Agendamento cancelado.', 'info');
+      renderMyAppointments();
+    }
 
-/* ─────────────────────────────────────────
-   HOME — UPCOMING
-────────────────────────────────────────── */
-async function renderHomeUpcoming() {
-  const el = document.getElementById('home-upcoming');
-  el.innerHTML = '';
-  const today = new Date(); today.setHours(0,0,0,0);
-  const snap = await getDocs(
-    query(collection(db,'bookings'),
-      where('userId','==', currentUser.uid),
-      where('status','in',['pending','confirmed']),
-      orderBy('date','asc')
-    )
-  );
-  const upcoming = snap.docs
-    .map(d => ({ id: d.id, ...d.data() }))
-    .filter(b => {
-      const d = b.date?.toDate ? b.date.toDate() : new Date(b.dateKey);
-      return d >= today;
-    })
-    .slice(0, 3);
+    /* ─────────────────────────────────────────
+       HOME — UPCOMING
+    ────────────────────────────────────────── */
+    async function renderHomeUpcoming() {
+      const el = document.getElementById('home-upcoming');
+      el.innerHTML = '';
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      const snap = await getDocs(
+        query(collection(db, 'bookings'),
+          where('userId', '==', currentUser.uid),
+          where('status', 'in', ['pending', 'confirmed']),
+          orderBy('date', 'asc')
+        )
+      );
+      const upcoming = snap.docs
+        .map(d => ({ id: d.id, ...d.data() }))
+        .filter(b => {
+          const d = b.date?.toDate ? b.date.toDate() : new Date(b.dateKey);
+          return d >= today;
+        })
+        .slice(0, 3);
 
-  if (!upcoming.length) {
-    el.innerHTML = `<div class="empty-state" style="padding:20px 0">
+      if (!upcoming.length) {
+        el.innerHTML = `<div class="empty-state" style="padding:20px 0">
       <div class="empty-icon">📅</div>
       <p class="empty-text">Sem agendamentos futuros</p>
       <button class="btn btn-gold" style="margin-top:12px;max-width:220px" onclick="navTo('booking')">Agendar Agora</button>
     </div>`;
-    return;
-  }
-  renderBookingCards(el, upcoming, false);
-}
+        return;
+      }
+      renderBookingCards(el, upcoming, false);
+    }
 
-/* ─────────────────────────────────────────
-   GALLERY — PUBLIC
-────────────────────────────────────────── */
-async function renderPublicGallery() {
-  const grid = document.getElementById('gallery-grid');
-  grid.innerHTML = '<div class="empty-state"><div class="spinner"></div></div>';
-  const snap = await getDocs(query(collection(db,'gallery'), orderBy('createdAt','desc')));
-  const photos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    /* ─────────────────────────────────────────
+       GALLERY — PUBLIC
+    ────────────────────────────────────────── */
+    async function renderPublicGallery() {
+      const grid = document.getElementById('gallery-grid');
+      grid.innerHTML = '<div class="empty-state"><div class="spinner"></div></div>';
+      const snap = await getDocs(query(collection(db, 'gallery'), orderBy('createdAt', 'desc')));
+      const photos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
 
-  if (!photos.length) {
-    grid.innerHTML = `<div class="empty-state" style="grid-column:span 2">
+      if (!photos.length) {
+        grid.innerHTML = `<div class="empty-state" style="grid-column:span 2">
       <div class="empty-icon">📸</div>
       <p class="empty-text">Galeria ainda vazia</p>
       <p class="empty-sub">Em breve novas fotos!</p>
     </div>`;
-    return;
-  }
-  grid.innerHTML = '';
-  photos.forEach(p => {
-    const el = document.createElement('div');
-    el.className = 'gallery-item';
-    el.innerHTML = `
-      <img src="${p.url}" alt="${p.caption||'Trabalho'}" loading="lazy" />
+        return;
+      }
+      grid.innerHTML = '';
+      photos.forEach(p => {
+        const el = document.createElement('div');
+        el.className = 'gallery-item';
+        el.innerHTML = `
+      <img src="${p.url}" alt="${p.caption || 'Trabalho'}" loading="lazy" />
       ${p.caption ? `<div class="gallery-item-label">${p.caption}</div>` : ''}
     `;
-    el.onclick = () => openLightbox(p.url);
-    grid.appendChild(el);
-  });
-}
+        el.onclick = () => openLightbox(p.url);
+        grid.appendChild(el);
+      });
+    }
 
-function openLightbox(url) {
-  document.getElementById('lightbox-img').src = url;
-  document.getElementById('lightbox').classList.add('show');
-}
-function closeLightbox() {
-  document.getElementById('lightbox').classList.remove('show');
-}
+    function openLightbox(url) {
+      document.getElementById('lightbox-img').src = url;
+      document.getElementById('lightbox').classList.add('show');
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('show');
+    }
 
-/* ─────────────────────────────────────────
-   ADMIN — LOAD
-────────────────────────────────────────── */
-async function loadAdminData() {
-  await loadServices();
-  await loadProducts();
-  renderAdminStats();
-  renderAdminServices();
-  renderAdminProducts();
-  renderAdminBookings();
-  renderAdminGallery();
-  renderAdminToday();
-}
+    /* ─────────────────────────────────────────
+       ADMIN — LOAD
+    ────────────────────────────────────────── */
+    async function loadAdminData() {
+      await loadServices();
+      await loadProducts();
+      renderAdminStats();
+      renderAdminServices();
+      renderAdminProducts();
+      renderAdminBookings();
+      renderAdminGallery();
+      renderAdminToday();
+    }
 
-async function loadProducts() {
-  const snap = await getDocs(query(collection(db,'products'), orderBy('name')));
-  productsCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-}
+    async function loadProducts() {
+      const snap = await getDocs(query(collection(db, 'products'), orderBy('name')));
+      productsCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    }
 
-/* ─────────────────────────────────────────
-   ADMIN — STATS
-────────────────────────────────────────── */
-async function renderAdminStats() {
-  const today = new Date(); today.setHours(0,0,0,0);
-  const todayKey = today.toISOString().split('T')[0];
+    /* ─────────────────────────────────────────
+       ADMIN — STATS
+    ────────────────────────────────────────── */
+    async function renderAdminStats() {
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      const todayKey = today.toISOString().split('T')[0];
 
-  const allSnap   = await getDocs(collection(db,'bookings'));
-  const all       = allSnap.docs.map(d => d.data());
-  const todayList = all.filter(b => b.dateKey === todayKey);
-  const confirmed = todayList.filter(b => ['confirmed','completed'].includes(b.status));
-  const revenue   = confirmed.reduce((sum, b) => sum + (Number(b.servicePrice)||0), 0);
-  const monthRev  = all.filter(b => {
-    const d = b.date?.toDate ? b.date.toDate() : new Date(b.dateKey);
-    return d.getMonth() === today.getMonth() && d.getFullYear() === today.getFullYear()
-      && ['confirmed','completed'].includes(b.status);
-  }).reduce((sum, b) => sum + (Number(b.servicePrice)||0), 0);
+      const allSnap = await getDocs(collection(db, 'bookings'));
+      const all = allSnap.docs.map(d => d.data());
+      const todayList = all.filter(b => b.dateKey === todayKey);
+      const confirmed = todayList.filter(b => ['confirmed', 'completed'].includes(b.status));
+      const revenue = confirmed.reduce((sum, b) => sum + (Number(b.servicePrice) || 0), 0);
+      const monthRev = all.filter(b => {
+        const d = b.date?.toDate ? b.date.toDate() : new Date(b.dateKey);
+        return d.getMonth() === today.getMonth() && d.getFullYear() === today.getFullYear()
+          && ['confirmed', 'completed'].includes(b.status);
+      }).reduce((sum, b) => sum + (Number(b.servicePrice) || 0), 0);
 
-  document.getElementById('admin-stats').innerHTML = `
+      document.getElementById('admin-stats').innerHTML = `
     <div class="stat-card">
       <div class="stat-value">${todayList.length}</div>
       <div class="stat-label">📅 Agendamentos Hoje</div>
@@ -2373,34 +2932,34 @@ async function renderAdminStats() {
       <div class="stat-label">📈 Receita do Mês</div>
     </div>
   `;
-}
+    }
 
-async function renderAdminToday() {
-  const todayKey = new Date().toISOString().split('T')[0];
-  const snap = await getDocs(
-    query(collection(db,'bookings'), where('dateKey','==',todayKey), orderBy('time'))
-  );
-  const list = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-  const el = document.getElementById('admin-today-list');
-  renderBookingCards(el, list, true);
-}
+    async function renderAdminToday() {
+      const todayKey = new Date().toISOString().split('T')[0];
+      const snap = await getDocs(
+        query(collection(db, 'bookings'), where('dateKey', '==', todayKey), orderBy('time'))
+      );
+      const list = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      const el = document.getElementById('admin-today-list');
+      renderBookingCards(el, list, true);
+    }
 
-/* ─────────────────────────────────────────
-   ADMIN — SERVICES
-────────────────────────────────────────── */
-function renderAdminServices() {
-  const el = document.getElementById('admin-services-list');
-  const icons = { corte:'✂️', barba:'🪒', combo:'💈', unhas:'💅', pes:'🦶', outro:'⭐' };
-  if (!servicesCache.length) {
-    el.innerHTML = '<p class="text-dim" style="font-size:13px;padding:10px 0">Nenhum serviço cadastrado.</p>';
-    return;
-  }
-  el.innerHTML = '';
-  servicesCache.forEach(svc => {
-    const div = document.createElement('div');
-    div.className = 'service-admin-item';
-    div.innerHTML = `
-      <div class="sai-icon">${icons[svc.category]||'⭐'}</div>
+    /* ─────────────────────────────────────────
+       ADMIN — SERVICES
+    ────────────────────────────────────────── */
+    function renderAdminServices() {
+      const el = document.getElementById('admin-services-list');
+      const icons = { corte: '✂️', barba: '🪒', combo: '💈', unhas: '💅', pes: '🦶', outro: '⭐' };
+      if (!servicesCache.length) {
+        el.innerHTML = '<p class="text-dim" style="font-size:13px;padding:10px 0">Nenhum serviço cadastrado.</p>';
+        return;
+      }
+      el.innerHTML = '';
+      servicesCache.forEach(svc => {
+        const div = document.createElement('div');
+        div.className = 'service-admin-item';
+        div.innerHTML = `
+      <div class="sai-icon">${icons[svc.category] || '⭐'}</div>
       <div class="sai-info">
         <div class="sai-name">${svc.name}</div>
         <div class="sai-price">R$ ${Number(svc.price).toFixed(2)} · ${svc.duration} min</div>
@@ -2410,177 +2969,177 @@ function renderAdminServices() {
         <button class="btn btn-danger btn-sm" onclick="deleteService('${svc.id}')">🗑</button>
       </div>
     `;
-    el.appendChild(div);
-  });
-}
+        el.appendChild(div);
+      });
+    }
 
-function openServiceModal(id) {
-  document.getElementById('service-modal-title').textContent = 'Novo Serviço';
-  document.getElementById('service-edit-id').value = '';
-  document.getElementById('svc-name').value = '';
-  document.getElementById('svc-category').value = 'corte';
-  document.getElementById('svc-desc').value = '';
-  document.getElementById('svc-price').value = '';
-  document.getElementById('svc-duration').value = '60';
-  openModal('modal-service');
-}
+    function openServiceModal(id) {
+      document.getElementById('service-modal-title').textContent = 'Novo Serviço';
+      document.getElementById('service-edit-id').value = '';
+      document.getElementById('svc-name').value = '';
+      document.getElementById('svc-category').value = 'corte';
+      document.getElementById('svc-desc').value = '';
+      document.getElementById('svc-price').value = '';
+      document.getElementById('svc-duration').value = '60';
+      openModal('modal-service');
+    }
 
-function editService(id) {
-  const svc = servicesCache.find(s => s.id === id);
-  if (!svc) return;
-  document.getElementById('service-modal-title').textContent = 'Editar Serviço';
-  document.getElementById('service-edit-id').value = id;
-  document.getElementById('svc-name').value = svc.name;
-  document.getElementById('svc-category').value = svc.category;
-  document.getElementById('svc-desc').value = svc.description || '';
-  document.getElementById('svc-price').value = svc.price;
-  document.getElementById('svc-duration').value = svc.duration;
-  openModal('modal-service');
-}
+    function editService(id) {
+      const svc = servicesCache.find(s => s.id === id);
+      if (!svc) return;
+      document.getElementById('service-modal-title').textContent = 'Editar Serviço';
+      document.getElementById('service-edit-id').value = id;
+      document.getElementById('svc-name').value = svc.name;
+      document.getElementById('svc-category').value = svc.category;
+      document.getElementById('svc-desc').value = svc.description || '';
+      document.getElementById('svc-price').value = svc.price;
+      document.getElementById('svc-duration').value = svc.duration;
+      openModal('modal-service');
+    }
 
-async function saveService() {
-  const id    = document.getElementById('service-edit-id').value;
-  const data  = {
-    name:        document.getElementById('svc-name').value.trim(),
-    category:    document.getElementById('svc-category').value,
-    description: document.getElementById('svc-desc').value.trim(),
-    price:       parseFloat(document.getElementById('svc-price').value) || 0,
-    duration:    parseInt(document.getElementById('svc-duration').value),
-    updatedAt:   serverTimestamp()
-  };
-  if (!data.name) { toast('Informe o nome do serviço', 'error'); return; }
+    async function saveService() {
+      const id = document.getElementById('service-edit-id').value;
+      const data = {
+        name: document.getElementById('svc-name').value.trim(),
+        category: document.getElementById('svc-category').value,
+        description: document.getElementById('svc-desc').value.trim(),
+        price: parseFloat(document.getElementById('svc-price').value) || 0,
+        duration: parseInt(document.getElementById('svc-duration').value),
+        updatedAt: serverTimestamp()
+      };
+      if (!data.name) { toast('Informe o nome do serviço', 'error'); return; }
 
-  if (id) {
-    await updateDoc(doc(db,'services',id), data);
-    toast('Serviço atualizado!', 'success');
-  } else {
-    data.createdAt = serverTimestamp();
-    await addDoc(collection(db,'services'), data);
-    toast('Serviço criado!', 'success');
-  }
-  closeModal('modal-service');
-  await loadServices();
-  renderAdminServices();
-}
+      if (id) {
+        await updateDoc(doc(db, 'services', id), data);
+        toast('Serviço atualizado!', 'success');
+      } else {
+        data.createdAt = serverTimestamp();
+        await addDoc(collection(db, 'services'), data);
+        toast('Serviço criado!', 'success');
+      }
+      closeModal('modal-service');
+      await loadServices();
+      renderAdminServices();
+    }
 
-async function deleteService(id) {
-  if (!confirm('Excluir este serviço?')) return;
-  await deleteDoc(doc(db,'services',id));
-  await loadServices();
-  renderAdminServices();
-  toast('Serviço removido.', 'info');
-}
+    async function deleteService(id) {
+      if (!confirm('Excluir este serviço?')) return;
+      await deleteDoc(doc(db, 'services', id));
+      await loadServices();
+      renderAdminServices();
+      toast('Serviço removido.', 'info');
+    }
 
-/* ─────────────────────────────────────────
-   ADMIN — PRODUCTS
-────────────────────────────────────────── */
-function renderAdminProducts() {
-  const el = document.getElementById('admin-products-list');
-  if (!productsCache.length) {
-    el.innerHTML = '<p class="text-dim" style="font-size:13px;padding:10px 0">Nenhum produto cadastrado.</p>';
-    return;
-  }
-  el.innerHTML = '';
-  const catIcons = { pomada:'💪', shampoo:'🧴', condicionador:'💧', oleo:'🫙', navalha:'🪒', tintura:'🎨', outro:'📦' };
-  productsCache.forEach(p => {
-    const low = p.stock <= (p.minStock||5);
-    const div = document.createElement('div');
-    div.className = 'product-item';
-    div.innerHTML = `
-      <div class="pi-icon">${catIcons[p.category]||'📦'}</div>
+    /* ─────────────────────────────────────────
+       ADMIN — PRODUCTS
+    ────────────────────────────────────────── */
+    function renderAdminProducts() {
+      const el = document.getElementById('admin-products-list');
+      if (!productsCache.length) {
+        el.innerHTML = '<p class="text-dim" style="font-size:13px;padding:10px 0">Nenhum produto cadastrado.</p>';
+        return;
+      }
+      el.innerHTML = '';
+      const catIcons = { pomada: '💪', shampoo: '🧴', condicionador: '💧', oleo: '🫙', navalha: '🪒', tintura: '🎨', outro: '📦' };
+      productsCache.forEach(p => {
+        const low = p.stock <= (p.minStock || 5);
+        const div = document.createElement('div');
+        div.className = 'product-item';
+        div.innerHTML = `
+      <div class="pi-icon">${catIcons[p.category] || '📦'}</div>
       <div class="pi-info">
         <div class="pi-name">${p.name}</div>
-        <div class="pi-meta">${p.brand||''} · R$ ${Number(p.price).toFixed(2)}</div>
-        <div class="pi-stock ${low?'low':''}">${low?'⚠️ ':''} ${p.stock} unidades</div>
+        <div class="pi-meta">${p.brand || ''} · R$ ${Number(p.price).toFixed(2)}</div>
+        <div class="pi-stock ${low ? 'low' : ''}">${low ? '⚠️ ' : ''} ${p.stock} unidades</div>
       </div>
       <div class="sai-actions">
         <button class="btn btn-outline btn-sm" onclick="editProduct('${p.id}')">✏️</button>
         <button class="btn btn-danger btn-sm" onclick="deleteProduct('${p.id}')">🗑</button>
       </div>
     `;
-    el.appendChild(div);
-  });
-}
+        el.appendChild(div);
+      });
+    }
 
-function openProductModal() {
-  document.getElementById('product-modal-title').textContent = 'Novo Produto';
-  document.getElementById('product-edit-id').value = '';
-  ['prod-name','prod-brand','prod-price','prod-stock'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('prod-category').value = 'pomada';
-  document.getElementById('prod-min-stock').value = '5';
-  openModal('modal-product');
-}
+    function openProductModal() {
+      document.getElementById('product-modal-title').textContent = 'Novo Produto';
+      document.getElementById('product-edit-id').value = '';
+      ['prod-name', 'prod-brand', 'prod-price', 'prod-stock'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('prod-category').value = 'pomada';
+      document.getElementById('prod-min-stock').value = '5';
+      openModal('modal-product');
+    }
 
-function editProduct(id) {
-  const p = productsCache.find(x => x.id === id);
-  if (!p) return;
-  document.getElementById('product-modal-title').textContent = 'Editar Produto';
-  document.getElementById('product-edit-id').value = id;
-  document.getElementById('prod-name').value = p.name;
-  document.getElementById('prod-brand').value = p.brand || '';
-  document.getElementById('prod-category').value = p.category;
-  document.getElementById('prod-price').value = p.price;
-  document.getElementById('prod-stock').value = p.stock;
-  document.getElementById('prod-min-stock').value = p.minStock || 5;
-  openModal('modal-product');
-}
+    function editProduct(id) {
+      const p = productsCache.find(x => x.id === id);
+      if (!p) return;
+      document.getElementById('product-modal-title').textContent = 'Editar Produto';
+      document.getElementById('product-edit-id').value = id;
+      document.getElementById('prod-name').value = p.name;
+      document.getElementById('prod-brand').value = p.brand || '';
+      document.getElementById('prod-category').value = p.category;
+      document.getElementById('prod-price').value = p.price;
+      document.getElementById('prod-stock').value = p.stock;
+      document.getElementById('prod-min-stock').value = p.minStock || 5;
+      openModal('modal-product');
+    }
 
-async function saveProduct() {
-  const id   = document.getElementById('product-edit-id').value;
-  const data = {
-    name:      document.getElementById('prod-name').value.trim(),
-    brand:     document.getElementById('prod-brand').value.trim(),
-    category:  document.getElementById('prod-category').value,
-    price:     parseFloat(document.getElementById('prod-price').value) || 0,
-    stock:     parseInt(document.getElementById('prod-stock').value) || 0,
-    minStock:  parseInt(document.getElementById('prod-min-stock').value) || 5,
-    updatedAt: serverTimestamp()
-  };
-  if (!data.name) { toast('Informe o nome do produto', 'error'); return; }
+    async function saveProduct() {
+      const id = document.getElementById('product-edit-id').value;
+      const data = {
+        name: document.getElementById('prod-name').value.trim(),
+        brand: document.getElementById('prod-brand').value.trim(),
+        category: document.getElementById('prod-category').value,
+        price: parseFloat(document.getElementById('prod-price').value) || 0,
+        stock: parseInt(document.getElementById('prod-stock').value) || 0,
+        minStock: parseInt(document.getElementById('prod-min-stock').value) || 5,
+        updatedAt: serverTimestamp()
+      };
+      if (!data.name) { toast('Informe o nome do produto', 'error'); return; }
 
-  if (id) {
-    await updateDoc(doc(db,'products',id), data);
-    toast('Produto atualizado!', 'success');
-  } else {
-    data.createdAt = serverTimestamp();
-    await addDoc(collection(db,'products'), data);
-    toast('Produto criado!', 'success');
-  }
-  closeModal('modal-product');
-  await loadProducts();
-  renderAdminProducts();
-}
+      if (id) {
+        await updateDoc(doc(db, 'products', id), data);
+        toast('Produto atualizado!', 'success');
+      } else {
+        data.createdAt = serverTimestamp();
+        await addDoc(collection(db, 'products'), data);
+        toast('Produto criado!', 'success');
+      }
+      closeModal('modal-product');
+      await loadProducts();
+      renderAdminProducts();
+    }
 
-async function deleteProduct(id) {
-  if (!confirm('Excluir este produto?')) return;
-  await deleteDoc(doc(db,'products',id));
-  await loadProducts();
-  renderAdminProducts();
-  toast('Produto removido.', 'info');
-}
+    async function deleteProduct(id) {
+      if (!confirm('Excluir este produto?')) return;
+      await deleteDoc(doc(db, 'products', id));
+      await loadProducts();
+      renderAdminProducts();
+      toast('Produto removido.', 'info');
+    }
 
-/* ─────────────────────────────────────────
-   ADMIN — ALL BOOKINGS
-────────────────────────────────────────── */
-async function renderAdminBookings() {
-  const filter = document.getElementById('admin-booking-filter')?.value || 'all';
-  const snap   = await getDocs(query(collection(db,'bookings'), orderBy('date','desc')));
-  let bookings = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-  if (filter !== 'all') bookings = bookings.filter(b => b.status === filter);
-  renderBookingCards(document.getElementById('admin-bookings-list'), bookings, true);
-}
+    /* ─────────────────────────────────────────
+       ADMIN — ALL BOOKINGS
+    ────────────────────────────────────────── */
+    async function renderAdminBookings() {
+      const filter = document.getElementById('admin-booking-filter')?.value || 'all';
+      const snap = await getDocs(query(collection(db, 'bookings'), orderBy('date', 'desc')));
+      let bookings = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      if (filter !== 'all') bookings = bookings.filter(b => b.status === filter);
+      renderBookingCards(document.getElementById('admin-bookings-list'), bookings, true);
+    }
 
-function openBookingDetail(id) {
-  const b = allBookings.find(x => x.id === id) || { id };
-  // Refetch for latest
-  getDoc(doc(db,'bookings',id)).then(snap => {
-    if (!snap.exists()) return;
-    const b = { id: snap.id, ...snap.data() };
-    const date = b.date?.toDate ? b.date.toDate() : new Date(b.dateKey);
-    const dateStr = date.toLocaleDateString('pt-BR', { weekday:'long', day:'2-digit', month:'long', year:'numeric' });
-    const statusLabel = { pending:'Pendente', confirmed:'Confirmado', cancelled:'Cancelado', completed:'Concluído' };
+    function openBookingDetail(id) {
+      const b = allBookings.find(x => x.id === id) || { id };
+      // Refetch for latest
+      getDoc(doc(db, 'bookings', id)).then(snap => {
+        if (!snap.exists()) return;
+        const b = { id: snap.id, ...snap.data() };
+        const date = b.date?.toDate ? b.date.toDate() : new Date(b.dateKey);
+        const dateStr = date.toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
+        const statusLabel = { pending: 'Pendente', confirmed: 'Confirmado', cancelled: 'Cancelado', completed: 'Concluído' };
 
-    document.getElementById('booking-detail-content').innerHTML = `
+        document.getElementById('booking-detail-content').innerHTML = `
       <div class="booking-summary" style="margin-bottom:16px">
         <div class="summary-row"><span class="summary-label">👤 Cliente</span><span class="summary-value">${b.userName}</span></div>
         <div class="summary-row"><span class="summary-label">📱 Telefone</span><span class="summary-value">${b.userPhone}</span></div>
@@ -2589,193 +3148,194 @@ function openBookingDetail(id) {
         <div class="summary-row"><span class="summary-label">🕐 Horário</span><span class="summary-value">${b.time}</span></div>
         <div class="summary-row"><span class="summary-label">⏱ Duração</span><span class="summary-value">${b.serviceDuration} min</span></div>
         <div class="summary-row"><span class="summary-label">💰 Valor</span><span class="summary-value gold">R$ ${Number(b.servicePrice).toFixed(2)}</span></div>
-        <div class="summary-row"><span class="summary-label">📌 Status</span><span class="summary-value">${statusLabel[b.status]||b.status}</span></div>
+        <div class="summary-row"><span class="summary-label">📌 Status</span><span class="summary-value">${statusLabel[b.status] || b.status}</span></div>
         ${b.notes ? `<div class="summary-row"><span class="summary-label">📝 Obs</span><span class="summary-value">${b.notes}</span></div>` : ''}
       </div>
     `;
 
-    const actions = document.getElementById('booking-detail-actions');
-    actions.innerHTML = '';
+        const actions = document.getElementById('booking-detail-actions');
+        actions.innerHTML = '';
 
-    const addBtn = (label, status, cls) => {
-      if (b.status === status) return;
-      const btn = document.createElement('button');
-      btn.className = `btn ${cls}`;
-      btn.textContent = label;
-      btn.onclick = () => updateBookingStatus(id, status);
-      actions.appendChild(btn);
-    };
+        const addBtn = (label, status, cls) => {
+          if (b.status === status) return;
+          const btn = document.createElement('button');
+          btn.className = `btn ${cls}`;
+          btn.textContent = label;
+          btn.onclick = () => updateBookingStatus(id, status);
+          actions.appendChild(btn);
+        };
 
-    if (!['completed','cancelled'].includes(b.status)) {
-      addBtn('✅ Concluído', 'completed', 'btn-gold');
-      addBtn('❌ Cancelar',  'cancelled',  'btn-danger');
+        if (!['completed', 'cancelled'].includes(b.status)) {
+          addBtn('✅ Concluído', 'completed', 'btn-gold');
+          addBtn('❌ Cancelar', 'cancelled', 'btn-danger');
+        }
+
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'btn btn-ghost';
+        closeBtn.textContent = 'Fechar';
+        closeBtn.onclick = () => closeModal('modal-booking-detail');
+        actions.appendChild(closeBtn);
+
+        openModal('modal-booking-detail');
+      });
     }
 
-    const closeBtn = document.createElement('button');
-    closeBtn.className = 'btn btn-ghost';
-    closeBtn.textContent = 'Fechar';
-    closeBtn.onclick = () => closeModal('modal-booking-detail');
-    actions.appendChild(closeBtn);
+    async function updateBookingStatus(id, status) {
+      await updateDoc(doc(db, 'bookings', id), { status, updatedAt: serverTimestamp() });
+      toast(`Status atualizado: ${status}`, 'success');
+      closeModal('modal-booking-detail');
+      renderAdminBookings();
+      renderAdminStats();
+      renderAdminToday();
+    }
 
-    openModal('modal-booking-detail');
-  });
-}
-
-async function updateBookingStatus(id, status) {
-  await updateDoc(doc(db,'bookings',id), { status, updatedAt: serverTimestamp() });
-  toast(`Status atualizado: ${status}`, 'success');
-  closeModal('modal-booking-detail');
-  renderAdminBookings();
-  renderAdminStats();
-  renderAdminToday();
-}
-
-/* ─────────────────────────────────────────
-   ADMIN — GALLERY
-────────────────────────────────────────── */
-function handleGalleryUpload(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-  galleryFileObj = file;
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    document.getElementById('gallery-preview').src = e.target.result;
-    document.getElementById('gallery-preview-wrap').classList.remove('hidden');
-  };
-  reader.readAsDataURL(file);
-}
-
-async function uploadGalleryPhoto() {
-  if (!galleryFileObj) { toast('Selecione uma foto primeiro', 'error'); return; }
-  const caption = document.getElementById('gallery-caption').value.trim();
-  const btn = document.getElementById('btn-upload-gallery');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span> Enviando...';
-
-  try {
-    // Upload to Cloudinary
-    const formData = new FormData();
-    formData.append('file', galleryFileObj);
-    formData.append('upload_preset', CLOUDINARY_CONFIG.uploadPreset);
-    formData.append('folder', 'barberpro/gallery');
-
-    const res  = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CONFIG.cloudName}/image/upload`, {
-      method: 'POST', body: formData
-    });
-    const data = await res.json();
-
-    if (!data.secure_url) throw new Error('Upload falhou');
-
-    // Save to Firestore
-    await addDoc(collection(db,'gallery'), {
-      url:       data.secure_url,
-      publicId:  data.public_id,
-      caption,
-      uploadedBy: currentUser.uid,
-      createdAt:  serverTimestamp()
-    });
-
-    toast('Foto publicada! 📸', 'success');
-    galleryFileObj = null;
-    document.getElementById('gallery-file-input').value = '';
-    document.getElementById('gallery-caption').value = '';
-    document.getElementById('gallery-preview-wrap').classList.add('hidden');
-    renderAdminGallery();
-  } catch(e) {
-    console.error(e);
-    toast('Erro no upload. Verifique a configuração do Cloudinary.', 'error');
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = '📤 Publicar Foto';
-  }
-}
-
-async function renderAdminGallery() {
-  const grid = document.getElementById('admin-gallery-grid');
-  grid.innerHTML = '';
-  const snap = await getDocs(query(collection(db,'gallery'), orderBy('createdAt','desc')));
-  const photos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-
-  photos.forEach(p => {
-    const el = document.createElement('div');
-    el.className = 'gallery-item';
-    el.style.position = 'relative';
-    el.innerHTML = `
-      <img src="${p.url}" alt="${p.caption||''}" loading="lazy" onclick="openLightbox('${p.url}')" />
-      ${p.caption ? `<div class="gallery-item-label">${p.caption}</div>` : ''}
-      <button onclick="deleteGalleryPhoto('${p.id}','${p.publicId||''}')"
-        style="position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.7);border:none;color:#e05252;
-               width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:13px">🗑</button>
-    `;
-    grid.appendChild(el);
-  });
-
-  if (!photos.length) {
-    grid.innerHTML = '<p class="text-dim" style="font-size:13px">Nenhuma foto publicada ainda.</p>';
-  }
-}
-
-async function deleteGalleryPhoto(id, publicId) {
-  if (!confirm('Remover esta foto?')) return;
-  await deleteDoc(doc(db,'gallery',id));
-  toast('Foto removida.', 'info');
-  renderAdminGallery();
-}
-
-/* ─────────────────────────────────────────
-   ADMIN TABS
-────────────────────────────────────────── */
-function adminTab(tab) {
-  document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
-  event.target.classList.add('active');
-  document.getElementById(`apanel-${tab}`).classList.add('active');
-}
-
-/* ─────────────────────────────────────────
-   MODAL HELPERS
-────────────────────────────────────────── */
-function openModal(id) {
-  document.getElementById(id).classList.add('show');
-}
-function closeModal(id) {
-  document.getElementById(id).classList.remove('show');
-}
-
-/* ─────────────────────────────────────────
-   DRAG-OVER for upload
-────────────────────────────────────────── */
-const uploadArea = document.getElementById('gallery-upload-area');
-if (uploadArea) {
-  uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('drag-over'); });
-  uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('drag-over'));
-  uploadArea.addEventListener('drop', e => {
-    e.preventDefault();
-    uploadArea.classList.remove('drag-over');
-    const file = e.dataTransfer.files[0];
-    if (file) {
+    /* ─────────────────────────────────────────
+       ADMIN — GALLERY
+    ────────────────────────────────────────── */
+    function handleGalleryUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
       galleryFileObj = file;
       const reader = new FileReader();
-      reader.onload = ev => {
-        document.getElementById('gallery-preview').src = ev.target.result;
+      reader.onload = (e) => {
+        document.getElementById('gallery-preview').src = e.target.result;
         document.getElementById('gallery-preview-wrap').classList.remove('hidden');
       };
       reader.readAsDataURL(file);
     }
-  });
-}
 
-/* ─────────────────────────────────────────
-   PHONE MASK
-────────────────────────────────────────── */
-document.getElementById('phone-number')?.addEventListener('input', function() {
-  let v = this.value.replace(/\D/g,'');
-  if (v.length > 11) v = v.slice(0,11);
-  if (v.length > 7) v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
-  else if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
-  this.value = v;
-});
+    async function uploadGalleryPhoto() {
+      if (!galleryFileObj) { toast('Selecione uma foto primeiro', 'error'); return; }
+      const caption = document.getElementById('gallery-caption').value.trim();
+      const btn = document.getElementById('btn-upload-gallery');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Enviando...';
 
-</script>
+      try {
+        // Upload to Cloudinary
+        const formData = new FormData();
+        formData.append('file', galleryFileObj);
+        formData.append('upload_preset', CLOUDINARY_CONFIG.uploadPreset);
+        formData.append('folder', 'barberpro/gallery');
+
+        const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CONFIG.cloudName}/image/upload`, {
+          method: 'POST', body: formData
+        });
+        const data = await res.json();
+
+        if (!data.secure_url) throw new Error('Upload falhou');
+
+        // Save to Firestore
+        await addDoc(collection(db, 'gallery'), {
+          url: data.secure_url,
+          publicId: data.public_id,
+          caption,
+          uploadedBy: currentUser.uid,
+          createdAt: serverTimestamp()
+        });
+
+        toast('Foto publicada! 📸', 'success');
+        galleryFileObj = null;
+        document.getElementById('gallery-file-input').value = '';
+        document.getElementById('gallery-caption').value = '';
+        document.getElementById('gallery-preview-wrap').classList.add('hidden');
+        renderAdminGallery();
+      } catch (e) {
+        console.error(e);
+        toast('Erro no upload. Verifique a configuração do Cloudinary.', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '📤 Publicar Foto';
+      }
+    }
+
+    async function renderAdminGallery() {
+      const grid = document.getElementById('admin-gallery-grid');
+      grid.innerHTML = '';
+      const snap = await getDocs(query(collection(db, 'gallery'), orderBy('createdAt', 'desc')));
+      const photos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+      photos.forEach(p => {
+        const el = document.createElement('div');
+        el.className = 'gallery-item';
+        el.style.position = 'relative';
+        el.innerHTML = `
+      <img src="${p.url}" alt="${p.caption || ''}" loading="lazy" onclick="openLightbox('${p.url}')" />
+      ${p.caption ? `<div class="gallery-item-label">${p.caption}</div>` : ''}
+      <button onclick="deleteGalleryPhoto('${p.id}','${p.publicId || ''}')"
+        style="position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.7);border:none;color:#e05252;
+               width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:13px">🗑</button>
+    `;
+        grid.appendChild(el);
+      });
+
+      if (!photos.length) {
+        grid.innerHTML = '<p class="text-dim" style="font-size:13px">Nenhuma foto publicada ainda.</p>';
+      }
+    }
+
+    async function deleteGalleryPhoto(id, publicId) {
+      if (!confirm('Remover esta foto?')) return;
+      await deleteDoc(doc(db, 'gallery', id));
+      toast('Foto removida.', 'info');
+      renderAdminGallery();
+    }
+
+    /* ─────────────────────────────────────────
+       ADMIN TABS
+    ────────────────────────────────────────── */
+    function adminTab(tab) {
+      document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById(`apanel-${tab}`).classList.add('active');
+    }
+
+    /* ─────────────────────────────────────────
+       MODAL HELPERS
+    ────────────────────────────────────────── */
+    function openModal(id) {
+      document.getElementById(id).classList.add('show');
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('show');
+    }
+
+    /* ─────────────────────────────────────────
+       DRAG-OVER for upload
+    ────────────────────────────────────────── */
+    const uploadArea = document.getElementById('gallery-upload-area');
+    if (uploadArea) {
+      uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('drag-over'); });
+      uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('drag-over'));
+      uploadArea.addEventListener('drop', e => {
+        e.preventDefault();
+        uploadArea.classList.remove('drag-over');
+        const file = e.dataTransfer.files[0];
+        if (file) {
+          galleryFileObj = file;
+          const reader = new FileReader();
+          reader.onload = ev => {
+            document.getElementById('gallery-preview').src = ev.target.result;
+            document.getElementById('gallery-preview-wrap').classList.remove('hidden');
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+
+    /* ─────────────────────────────────────────
+       PHONE MASK
+    ────────────────────────────────────────── */
+    document.getElementById('phone-number')?.addEventListener('input', function () {
+      let v = this.value.replace(/\D/g, '');
+      if (v.length > 11) v = v.slice(0, 11);
+      if (v.length > 7) v = `(${v.slice(0, 2)}) ${v.slice(2, 7)}-${v.slice(7)}`;
+      else if (v.length > 2) v = `(${v.slice(0, 2)}) ${v.slice(2)}`;
+      this.value = v;
+    });
+
+  </script>
 </body>
+
 </html>
