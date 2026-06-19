@@ -74,6 +74,28 @@ service cloud.firestore {
     }
 
     // ────────────────────────────────────────
+    // SLOTS — disponibilidade pública de horários, sem dados pessoais.
+    // Qualquer autenticado pode LER (precisa saber o que está ocupado),
+    // mas só pode ESCREVER no slot referente ao próprio agendamento.
+    // O ID do documento é determinístico ({dateKey}_{time}), o que
+    // garante atomicidade: dois clientes não conseguem criar o mesmo
+    // slot ao mesmo tempo — o segundo create falha por já existir.
+    // ────────────────────────────────────────
+    match /slots/{slotId} {
+      allow read: if isAuth();
+
+      allow create: if isAuth() &&
+        request.resource.data.keys().hasAll(['dateKey','time','bookingId','userId']) &&
+        request.resource.data.userId == request.auth.uid;
+
+      allow delete: if isAdmin() ||
+        (isAuth() && resource.data.userId == request.auth.uid);
+
+      // Slots nunca são editados, só criados ou removidos
+      allow update: if false;
+    }
+
+    // ────────────────────────────────────────
     // GALLERY — qualquer autenticado vê; apenas admin posta/remove
     // ────────────────────────────────────────
     match /gallery/{photoId} {

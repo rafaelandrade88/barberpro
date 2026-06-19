@@ -357,7 +357,7 @@
     /* ═══════════════════════════════════════════
        AUTH PAGE
     ═══════════════════════════════════════════ */
-    #page-auth.active {
+    #page-auth {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -365,7 +365,9 @@
       padding: 40px 24px;
     }
 
-
+    #page-auth.active {
+      display: flex;
+    }
 
     .auth-logo {
       font-family: var(--font-display);
@@ -2025,11 +2027,11 @@
       </div>
 
       <div class="admin-tabs">
-        <button class="admin-tab active" onclick="adminTab('dashboard')">📊 Dashboard</button>
-        <button class="admin-tab" onclick="adminTab('services')">✂️ Serviços</button>
-        <button class="admin-tab" onclick="adminTab('products')">🧴 Produtos</button>
-        <button class="admin-tab" onclick="adminTab('bookings')">📅 Agendamentos</button>
-        <button class="admin-tab" onclick="adminTab('gallery')">📸 Galeria</button>
+        <button class="admin-tab active" onclick="adminTab('dashboard', event)">📊 Dashboard</button>
+        <button class="admin-tab" onclick="adminTab('services', event)">✂️ Serviços</button>
+        <button class="admin-tab" onclick="adminTab('products', event)">🧴 Produtos</button>
+        <button class="admin-tab" onclick="adminTab('bookings', event)">📅 Agendamentos</button>
+        <button class="admin-tab" onclick="adminTab('gallery', event)">📸 Galeria</button>
       </div>
 
       <!-- DASHBOARD PANEL -->
@@ -2213,7 +2215,7 @@
       getFirestore,
       doc, setDoc, getDoc, addDoc, updateDoc, deleteDoc,
       collection, query, where, orderBy, onSnapshot, getDocs,
-      serverTimestamp, Timestamp
+      serverTimestamp, Timestamp, runTransaction
     } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
     /* ─────────────────────────────────────────
@@ -2418,14 +2420,12 @@
        AUTH — PHONE
     ────────────────────────────────────────── */
     function setupRecaptcha() {
-      if (window.recaptchaVerifier) {
-        window.recaptchaVerifier.clear();
-        window.recaptchaVerifier = null;
+      if (!window.recaptchaVerifier) {
+        window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+          size: 'invisible',
+          callback: () => { }
+        });
       }
-      window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-        size: 'invisible',
-        callback: () => { }
-      });
     }
 
     async function sendPhoneCode() {
@@ -2632,20 +2632,17 @@
 
       let booked = [];
       try {
-        // Get booked slots for this date
+        // Consulta a coleção pública "slots" em vez de "bookings" diretamente.
+        // "slots" só guarda dateKey + time + referência ao booking, sem dados
+        // pessoais — por isso pode ser lida por qualquer cliente autenticado
+        // sem expor agendamentos de terceiros (nome, telefone, serviço).
+        // Query de campo único: não exige índice composto.
         const dateKey = selectedDate.toISOString().split('T')[0];
         const bookedSnap = await getDocs(
-          query(collection(db, 'bookings'),
-            where('dateKey', '==', dateKey),
-            where('status', 'in', ['pending', 'confirmed'])
-          )
+          query(collection(db, 'slots'), where('dateKey', '==', dateKey))
         );
         booked = bookedSnap.docs.map(d => d.data().time);
       } catch (e) {
-        // Causa mais comum: índice composto do Firestore ainda não foi criado
-        // (where dateKey + where status in [] exige índice composto), ou
-        // firestore.rules negando a leitura. Não trava a tela: segue exibindo
-        // todos os horários como disponíveis e loga o erro real no console.
         console.error('[renderSlots] Falha ao consultar horários reservados:', e);
         toast('Não foi possível verificar horários ocupados. Veja o console (F12).', 'error');
       }
@@ -2673,20 +2670,6 @@
        BOOKING STEPS
     ────────────────────────────────────────── */
     function bookingStep(step) {
-      // Guarda de validação: impede avançar sem completar a etapa anterior
-      if (step === 2 && !selectedDate) {
-        toast('Selecione uma data antes de continuar', 'error');
-        return;
-      }
-      if (step === 3 && !selectedSlot) {
-        toast('Selecione um horário antes de continuar', 'error');
-        return;
-      }
-      if (step === 4 && !selectedService) {
-        toast('Selecione um serviço antes de continuar', 'error');
-        return;
-      }
-
       currentStep = step;
       for (let i = 1; i <= 4; i++) {
         document.getElementById(`booking-step-${i}`).classList.toggle('hidden', i !== step);
@@ -2760,47 +2743,65 @@
       const dateKey = selectedDate.toISOString().split('T')[0];
       const notes = document.getElementById('booking-notes').value.trim();
 
-      // Double-check slot availability
-      const conflictSnap = await getDocs(
-        query(collection(db, 'bookings'),
-          where('dateKey', '==', dateKey),
-          where('time', '==', selectedSlot),
-          where('status', 'in', ['pending', 'confirmed'])
-        )
-      );
-      if (!conflictSnap.empty) {
-        toast('Este horário acabou de ser reservado. Escolha outro.', 'error');
-        btn.disabled = false;
-        btn.innerHTML = '✅ Confirmar Agendamento';
-        bookingStep(2);
-        return;
-      }
+      // ID determinístico do slot: garante que dois clientes não conseguem
+      // reservar o mesmo dia+horário ao mesmo tempo. A transação abaixo lê
+      // esse documento e, se ele já existir, aborta antes de criar nada —
+      // substituindo a checagem manual de conflito (que tinha uma race
+      // condition entre "verificar" e "criar") por uma garantia atômica
+      // real do próprio Firestore.
+      const slotId = `${dateKey}_${selectedSlot}`;
+      const slotRef = doc(db, 'slots', slotId);
+      const bookingRef = doc(collection(db, 'bookings')); // gera um ID novo client-side
 
       try {
         const userSnap = await getDoc(doc(db, 'users', currentUser.uid));
         const userName = userSnap.exists() ? userSnap.data().name : 'Cliente';
 
-        await addDoc(collection(db, 'bookings'), {
-          userId: currentUser.uid,
-          userPhone: currentUser.phoneNumber,
-          userName,
-          serviceId: selectedService.id,
-          serviceName: selectedService.name,
-          servicePrice: selectedService.price,
-          serviceDuration: selectedService.duration,
-          dateKey,
-          date: Timestamp.fromDate(selectedDate),
-          time: selectedSlot,
-          notes,
-          status: 'confirmed',
-          createdAt: serverTimestamp()
+        await runTransaction(db, async (tx) => {
+          const slotSnap = await tx.get(slotRef);
+          if (slotSnap.exists()) {
+            // Alguém reservou esse horário entre a renderização da tela
+            // e o clique em confirmar — aborta a transação inteira,
+            // nenhuma escrita parcial acontece.
+            throw new Error('SLOT_TAKEN');
+          }
+
+          tx.set(bookingRef, {
+            userId: currentUser.uid,
+            userPhone: currentUser.phoneNumber,
+            userName,
+            serviceId: selectedService.id,
+            serviceName: selectedService.name,
+            servicePrice: selectedService.price,
+            serviceDuration: selectedService.duration,
+            dateKey,
+            date: Timestamp.fromDate(selectedDate),
+            time: selectedSlot,
+            notes,
+            status: 'confirmed',
+            createdAt: serverTimestamp()
+          });
+
+          tx.set(slotRef, {
+            dateKey,
+            time: selectedSlot,
+            bookingId: bookingRef.id,
+            userId: currentUser.uid,
+            createdAt: serverTimestamp()
+          });
         });
 
         toast('Agendamento confirmado! ✂️', 'success');
         navTo('appointments');
       } catch (e) {
-        console.error(e);
-        toast('Erro ao confirmar. Tente novamente.', 'error');
+        if (e.message === 'SLOT_TAKEN') {
+          toast('Este horário acabou de ser reservado. Escolha outro.', 'error');
+          bookingStep(2);
+          renderSlots();
+        } else {
+          console.error('[confirmBooking] Falha na transação:', e);
+          toast('Erro ao confirmar. Tente novamente.', 'error');
+        }
       } finally {
         btn.disabled = false;
         btn.innerHTML = '✅ Confirmar Agendamento';
@@ -2879,9 +2880,30 @@
 
     async function cancelMyBooking(id) {
       if (!confirm('Tem certeza que deseja cancelar este agendamento?')) return;
-      await updateDoc(doc(db, 'bookings', id), { status: 'cancelled' });
-      toast('Agendamento cancelado.', 'info');
-      renderMyAppointments();
+      try {
+        const bookingSnap = await getDoc(doc(db, 'bookings', id));
+        if (!bookingSnap.exists()) return;
+        const booking = bookingSnap.data();
+
+        await updateDoc(doc(db, 'bookings', id), { status: 'cancelled' });
+
+        // Libera o slot para que outros clientes possam reservar esse
+        // horário. Regra de segurança: o delete só é permitido para o
+        // próprio dono do slot (userId) ou admin — coerente com quem
+        // está cancelando aqui.
+        const slotId = `${booking.dateKey}_${booking.time}`;
+        await deleteDoc(doc(db, 'slots', slotId)).catch(err => {
+          // Não bloqueia o fluxo do usuário se o slot já não existir
+          // por algum motivo (ex: já foi removido por outra ação).
+          console.warn('[cancelMyBooking] Slot não pôde ser removido:', err);
+        });
+
+        toast('Agendamento cancelado.', 'info');
+        renderMyAppointments();
+      } catch (e) {
+        console.error('[cancelMyBooking] Falha ao cancelar:', e);
+        toast('Erro ao cancelar. Tente novamente.', 'error');
+      }
     }
 
     /* ─────────────────────────────────────────
@@ -3286,12 +3308,32 @@
     }
 
     async function updateBookingStatus(id, status) {
-      await updateDoc(doc(db, 'bookings', id), { status, updatedAt: serverTimestamp() });
-      toast(`Status atualizado: ${status}`, 'success');
-      closeModal('modal-booking-detail');
-      renderAdminBookings();
-      renderAdminStats();
-      renderAdminToday();
+      try {
+        // Quando o admin cancela, libera o slot para reabrir o horário.
+        // Quando marca como "completed", mantém o slot ocupado de
+        // propósito — a data já passou, então não há risco de conflito
+        // real, e simplifica a lógica (decisão confirmada com o cliente).
+        if (status === 'cancelled') {
+          const bookingSnap = await getDoc(doc(db, 'bookings', id));
+          if (bookingSnap.exists()) {
+            const booking = bookingSnap.data();
+            const slotId = `${booking.dateKey}_${booking.time}`;
+            await deleteDoc(doc(db, 'slots', slotId)).catch(err => {
+              console.warn('[updateBookingStatus] Slot não pôde ser removido:', err);
+            });
+          }
+        }
+
+        await updateDoc(doc(db, 'bookings', id), { status, updatedAt: serverTimestamp() });
+        toast(`Status atualizado: ${status}`, 'success');
+        closeModal('modal-booking-detail');
+        renderAdminBookings();
+        renderAdminStats();
+        renderAdminToday();
+      } catch (e) {
+        console.error('[updateBookingStatus] Falha ao atualizar status:', e);
+        toast('Erro ao atualizar status. Tente novamente.', 'error');
+      }
     }
 
     /* ─────────────────────────────────────────
@@ -3389,10 +3431,14 @@
     /* ─────────────────────────────────────────
        ADMIN TABS
     ────────────────────────────────────────── */
-    function adminTab(tab) {
+    function adminTab(tab, evt) {
+      // Recebe o evento como parâmetro explícito em vez de depender do
+      // global legado window.event, que é inconsistente entre navegadores
+      // (especialmente em mobile) e pode falhar silenciosamente.
       document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
-      event.target.classList.add('active');
+      const clickedBtn = evt?.currentTarget || evt?.target;
+      if (clickedBtn) clickedBtn.classList.add('active');
       document.getElementById(`apanel-${tab}`).classList.add('active');
     }
 
