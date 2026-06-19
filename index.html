@@ -357,7 +357,7 @@
     /* ═══════════════════════════════════════════
        AUTH PAGE
     ═══════════════════════════════════════════ */
-    #page-auth {
+    #page-auth.active {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -365,9 +365,7 @@
       padding: 40px 24px;
     }
 
-    #page-auth.active {
-      display: flex;
-    }
+
 
     .auth-logo {
       font-family: var(--font-display);
@@ -2420,12 +2418,14 @@
        AUTH — PHONE
     ────────────────────────────────────────── */
     function setupRecaptcha() {
-      if (!window.recaptchaVerifier) {
-        window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-          size: 'invisible',
-          callback: () => { }
-        });
+      if (window.recaptchaVerifier) {
+        window.recaptchaVerifier.clear();
+        window.recaptchaVerifier = null;
       }
+      window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+        size: 'invisible',
+        callback: () => { }
+      });
     }
 
     async function sendPhoneCode() {
@@ -2673,6 +2673,20 @@
        BOOKING STEPS
     ────────────────────────────────────────── */
     function bookingStep(step) {
+      // Guarda de validação: impede avançar sem completar a etapa anterior
+      if (step === 2 && !selectedDate) {
+        toast('Selecione uma data antes de continuar', 'error');
+        return;
+      }
+      if (step === 3 && !selectedSlot) {
+        toast('Selecione um horário antes de continuar', 'error');
+        return;
+      }
+      if (step === 4 && !selectedService) {
+        toast('Selecione um serviço antes de continuar', 'error');
+        return;
+      }
+
       currentStep = step;
       for (let i = 1; i <= 4; i++) {
         document.getElementById(`booking-step-${i}`).classList.toggle('hidden', i !== step);

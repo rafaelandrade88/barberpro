@@ -17,7 +17,7 @@ service cloud.firestore {
     // Adicione os números no formato +5511999999999
     function isAdmin() {
       return isAuth() && request.auth.token.phone_number in [
-        "+5511999999999"  // ← substitua pelo telefone do barbeiro
+        "+5511965276642"  // Telefone do barbeiro/admin
       ];
     }
 
