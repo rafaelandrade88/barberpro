@@ -98,6 +98,8 @@
       justify-content: space-between;
       padding: 0 20px;
       z-index: 1000;
+      gap: 8px;
+      overflow: visible;
     }
 
     .header-logo {
@@ -107,6 +109,11 @@
       color: var(--gold);
       text-decoration: none;
       cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .header-logo span {
@@ -117,6 +124,7 @@
       display: flex;
       align-items: center;
       gap: 14px;
+      flex-shrink: 0;
     }
 
     .version-badge {
@@ -127,6 +135,9 @@
       padding: 3px 8px;
       border-radius: 20px;
       letter-spacing: 1px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      display: inline-block;
     }
 
     /* HAMBURGER */
@@ -1777,6 +1788,9 @@
       <div class="drawer-logout" id="logout-btn" onclick="logout()">
         <span>🚪</span> Sair da Conta
       </div>
+      <div class="text-center text-dim" style="font-size:11px;margin-top:14px;letter-spacing:1px">
+        BarberPro <span id="drawer-version">v1.0.0</span>
+      </div>
     </div>
   </nav>
 
@@ -2208,21 +2222,25 @@
        🔧 CONFIGURAÇÃO — substitua pelos seus dados
     ────────────────────────────────────────── */
     const FIREBASE_CONFIG = {
-      apiKey: "AIzaSyDqX8dS8v0eECKcbL5JZCWT5Pa-ARK_IYQ",
-      authDomain: "barberpro-app-99f66.firebaseapp.com",
-      projectId: "barberpro-app-99f66",
-      storageBucket: "barberpro-app-99f66.firebasestorage.app",
-      messagingSenderId: "1077272386910",
-      appId: "1:1077272386910:web:6666752c0e18c51566c3cf"
+      apiKey: "SUA_API_KEY",
+      authDomain: "SEU_PROJECT.firebaseapp.com",
+      projectId: "SEU_PROJECT_ID",
+      storageBucket: "SEU_PROJECT.appspot.com",
+      messagingSenderId: "SEU_SENDER_ID",
+      appId: "SEU_APP_ID"
     };
 
     const CLOUDINARY_CONFIG = {
-      cloudName: "dkfvnaw7y",
-      uploadPreset: "barber-pro"
+      cloudName: "SEU_CLOUD_NAME",
+      uploadPreset: "SEU_UPLOAD_PRESET_UNSIGNED"
     };
 
     // Admin phones (adicione os números autorizados como admin)
-    const ADMIN_PHONES = ["+5511965276642"]; // Substitua pelo número do barbeiro
+    const ADMIN_PHONES = ["+5511999999999"]; // Substitua pelo número do barbeiro
+
+    // Versão única do app — fonte da verdade para o badge do header e o rodapé do drawer.
+    // Atualize SOMENTE aqui a cada release; os dois pontos de exibição são sincronizados via JS.
+    const APP_VERSION = "v1.0.1";
 
     /* ─────────────────────────────────────────
        INIT
@@ -2251,6 +2269,15 @@
     let servicesCache = [];
     let productsCache = [];
     let allBookings = [];
+
+    /* ─────────────────────────────────────────
+       VERSION SYNC — aplica a versão única do app
+       no badge do header e no rodapé do drawer,
+       evitando divergência entre os dois textos.
+    ────────────────────────────────────────── */
+    document.querySelectorAll('.version-badge').forEach(el => el.textContent = APP_VERSION);
+    const drawerVersionEl = document.getElementById('drawer-version');
+    if (drawerVersionEl) drawerVersionEl.textContent = APP_VERSION;
 
     /* ─────────────────────────────────────────
        EXPOSE GLOBALS (onclick handlers)
@@ -2332,14 +2359,26 @@
        NAVIGATION
     ────────────────────────────────────────── */
     function navTo(page) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById(`page-${page}`).classList.add('active');
+      // Fecha o drawer IMEDIATAMENTE e de forma síncrona antes de trocar de página,
+      // evitando que a transição CSS do drawer (300ms) sobreponha visualmente
+      // a nova página enquanto ela ainda está renderizando.
       closeDrawer();
+
+      const target = document.getElementById(`page-${page}`);
+      if (!target) {
+        console.error(`[navTo] Página "page-${page}" não encontrada no DOM.`);
+        return;
+      }
+
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      target.classList.add('active');
       window.scrollTo(0, 0);
 
       // Update active drawer item
       document.querySelectorAll('.drawer-item').forEach(i => i.classList.remove('active'));
 
+      // Dispara o carregamento de dados da página de forma assíncrona,
+      // mas a TROCA DE TELA acima já aconteceu de forma síncrona e imediata.
       if (page === 'home') { renderHomeUpcoming(); }
       if (page === 'booking') { resetBookingFlow(); }
       if (page === 'appointments') { renderMyAppointments(); }
@@ -2381,14 +2420,12 @@
        AUTH — PHONE
     ────────────────────────────────────────── */
     function setupRecaptcha() {
-      if (window.recaptchaVerifier) {
-        window.recaptchaVerifier.clear();
-        window.recaptchaVerifier = null;
+      if (!window.recaptchaVerifier) {
+        window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+          size: 'invisible',
+          callback: () => { }
+        });
       }
-      window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-        size: 'invisible',
-        callback: () => { }
-      });
     }
 
     async function sendPhoneCode() {
@@ -2587,22 +2624,33 @@
     async function renderSlots() {
       const grid = document.getElementById('slots-grid');
       const label = document.getElementById('slots-date-label');
-      grid.innerHTML = '';
+      grid.innerHTML = '<div class="empty-state" style="grid-column:span 3"><div class="spinner"></div></div>';
 
       const dayName = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'][selectedDate.getDay()];
       const dateStr = selectedDate.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
       label.textContent = `Horários — ${dayName}, ${dateStr}`;
 
-      // Get booked slots for this date
-      const dateKey = selectedDate.toISOString().split('T')[0];
-      const bookedSnap = await getDocs(
-        query(collection(db, 'bookings'),
-          where('dateKey', '==', dateKey),
-          where('status', 'in', ['pending', 'confirmed'])
-        )
-      );
-      const booked = bookedSnap.docs.map(d => d.data().time);
+      let booked = [];
+      try {
+        // Get booked slots for this date
+        const dateKey = selectedDate.toISOString().split('T')[0];
+        const bookedSnap = await getDocs(
+          query(collection(db, 'bookings'),
+            where('dateKey', '==', dateKey),
+            where('status', 'in', ['pending', 'confirmed'])
+          )
+        );
+        booked = bookedSnap.docs.map(d => d.data().time);
+      } catch (e) {
+        // Causa mais comum: índice composto do Firestore ainda não foi criado
+        // (where dateKey + where status in [] exige índice composto), ou
+        // firestore.rules negando a leitura. Não trava a tela: segue exibindo
+        // todos os horários como disponíveis e loga o erro real no console.
+        console.error('[renderSlots] Falha ao consultar horários reservados:', e);
+        toast('Não foi possível verificar horários ocupados. Veja o console (F12).', 'error');
+      }
 
+      grid.innerHTML = '';
       TIME_SLOTS.forEach(slot => {
         const isBooked = booked.includes(slot);
         const el = document.createElement('div');
@@ -2752,14 +2800,28 @@
       const list = document.getElementById('appointments-list');
       list.innerHTML = '<div class="empty-state"><div class="spinner"></div></div>';
 
-      const snap = await getDocs(
-        query(collection(db, 'bookings'),
-          where('userId', '==', currentUser.uid),
-          orderBy('date', 'desc')
-        )
-      );
-      const bookings = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-      renderBookingCards(list, bookings, false);
+      try {
+        const snap = await getDocs(
+          query(collection(db, 'bookings'),
+            where('userId', '==', currentUser.uid),
+            orderBy('date', 'desc')
+          )
+        );
+        const bookings = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        renderBookingCards(list, bookings, false);
+      } catch (e) {
+        // Causa mais comum: índice composto (userId + date) ainda não criado,
+        // ou firestore.rules bloqueando a leitura. O índice é exigido pelo
+        // Firestore sempre que se combina "where" com "orderBy" em campos
+        // diferentes — sem ele a query rejeita com FAILED_PRECONDITION e
+        // o link para criar o índice automaticamente vem no console (F12).
+        console.error('[renderMyAppointments] Falha ao carregar agendamentos:', e);
+        list.innerHTML = `<div class="empty-state">
+      <div class="empty-icon">⚠️</div>
+      <p class="empty-text">Não foi possível carregar seus agendamentos</p>
+      <p class="empty-sub">Abra o console (F12) para ver o erro técnico</p>
+    </div>`;
+      }
     }
 
     function renderBookingCards(container, bookings, adminView) {
@@ -2813,32 +2875,45 @@
     ────────────────────────────────────────── */
     async function renderHomeUpcoming() {
       const el = document.getElementById('home-upcoming');
-      el.innerHTML = '';
-      const today = new Date(); today.setHours(0, 0, 0, 0);
-      const snap = await getDocs(
-        query(collection(db, 'bookings'),
-          where('userId', '==', currentUser.uid),
-          where('status', 'in', ['pending', 'confirmed']),
-          orderBy('date', 'asc')
-        )
-      );
-      const upcoming = snap.docs
-        .map(d => ({ id: d.id, ...d.data() }))
-        .filter(b => {
-          const d = b.date?.toDate ? b.date.toDate() : new Date(b.dateKey);
-          return d >= today;
-        })
-        .slice(0, 3);
+      el.innerHTML = '<div class="empty-state" style="padding:20px 0"><div class="spinner"></div></div>';
 
-      if (!upcoming.length) {
+      try {
+        const today = new Date(); today.setHours(0, 0, 0, 0);
+        const snap = await getDocs(
+          query(collection(db, 'bookings'),
+            where('userId', '==', currentUser.uid),
+            where('status', 'in', ['pending', 'confirmed']),
+            orderBy('date', 'asc')
+          )
+        );
+        const upcoming = snap.docs
+          .map(d => ({ id: d.id, ...d.data() }))
+          .filter(b => {
+            const d = b.date?.toDate ? b.date.toDate() : new Date(b.dateKey);
+            return d >= today;
+          })
+          .slice(0, 3);
+
+        if (!upcoming.length) {
+          el.innerHTML = `<div class="empty-state" style="padding:20px 0">
+        <div class="empty-icon">📅</div>
+        <p class="empty-text">Sem agendamentos futuros</p>
+        <button class="btn btn-gold" style="margin-top:12px;max-width:220px" onclick="navTo('booking')">Agendar Agora</button>
+      </div>`;
+          return;
+        }
+        renderBookingCards(el, upcoming, false);
+      } catch (e) {
+        // Mesma causa raiz dos demais: índice composto (userId + status + date)
+        // ainda não publicado no Firestore. O console mostra um link direto
+        // do Firebase para criar o índice automaticamente com 1 clique.
+        console.error('[renderHomeUpcoming] Falha ao carregar próximos agendamentos:', e);
         el.innerHTML = `<div class="empty-state" style="padding:20px 0">
-      <div class="empty-icon">📅</div>
-      <p class="empty-text">Sem agendamentos futuros</p>
-      <button class="btn btn-gold" style="margin-top:12px;max-width:220px" onclick="navTo('booking')">Agendar Agora</button>
+      <div class="empty-icon">⚠️</div>
+      <p class="empty-text">Não foi possível carregar agendamentos</p>
+      <p class="empty-sub">Abra o console (F12) para ver o erro técnico</p>
     </div>`;
-        return;
       }
-      renderBookingCards(el, upcoming, false);
     }
 
     /* ─────────────────────────────────────────
@@ -2846,29 +2921,43 @@
     ────────────────────────────────────────── */
     async function renderPublicGallery() {
       const grid = document.getElementById('gallery-grid');
-      grid.innerHTML = '<div class="empty-state"><div class="spinner"></div></div>';
-      const snap = await getDocs(query(collection(db, 'gallery'), orderBy('createdAt', 'desc')));
-      const photos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      grid.innerHTML = '<div class="empty-state" style="grid-column:span 2"><div class="spinner"></div></div>';
 
-      if (!photos.length) {
+      try {
+        const snap = await getDocs(query(collection(db, 'gallery'), orderBy('createdAt', 'desc')));
+        const photos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+        if (!photos.length) {
+          grid.innerHTML = `<div class="empty-state" style="grid-column:span 2">
+        <div class="empty-icon">📸</div>
+        <p class="empty-text">Galeria ainda vazia</p>
+        <p class="empty-sub">Em breve novas fotos!</p>
+      </div>`;
+          return;
+        }
+        grid.innerHTML = '';
+        photos.forEach(p => {
+          const el = document.createElement('div');
+          el.className = 'gallery-item';
+          el.innerHTML = `
+        <img src="${p.url}" alt="${p.caption || 'Trabalho'}" loading="lazy" />
+        ${p.caption ? `<div class="gallery-item-label">${p.caption}</div>` : ''}
+      `;
+          el.onclick = () => openLightbox(p.url);
+          grid.appendChild(el);
+        });
+      } catch (e) {
+        // Causa mais comum: firestore.rules exigindo isAuth() mas o usuário
+        // ainda não tem o token de auth totalmente propagado, ou a coleção
+        // "gallery" não existe ainda (Firestore não erra por coleção vazia,
+        // mas erra por permissão). Log do erro real fica disponível no console.
+        console.error('[renderPublicGallery] Falha ao carregar galeria:', e);
         grid.innerHTML = `<div class="empty-state" style="grid-column:span 2">
-      <div class="empty-icon">📸</div>
-      <p class="empty-text">Galeria ainda vazia</p>
-      <p class="empty-sub">Em breve novas fotos!</p>
+      <div class="empty-icon">⚠️</div>
+      <p class="empty-text">Não foi possível carregar a galeria</p>
+      <p class="empty-sub">Abra o console (F12) para ver o erro técnico</p>
     </div>`;
-        return;
       }
-      grid.innerHTML = '';
-      photos.forEach(p => {
-        const el = document.createElement('div');
-        el.className = 'gallery-item';
-        el.innerHTML = `
-      <img src="${p.url}" alt="${p.caption || 'Trabalho'}" loading="lazy" />
-      ${p.caption ? `<div class="gallery-item-label">${p.caption}</div>` : ''}
-    `;
-        el.onclick = () => openLightbox(p.url);
-        grid.appendChild(el);
-      });
     }
 
     function openLightbox(url) {
