@@ -3248,10 +3248,22 @@
     ────────────────────────────────────────── */
     async function renderAdminBookings() {
       const filter = document.getElementById('admin-booking-filter')?.value || 'all';
-      const snap = await getDocs(query(collection(db, 'bookings'), orderBy('date', 'desc')));
-      let bookings = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-      if (filter !== 'all') bookings = bookings.filter(b => b.status === filter);
-      renderBookingCards(document.getElementById('admin-bookings-list'), bookings, true);
+      const container = document.getElementById('admin-bookings-list');
+      container.innerHTML = '<div class="empty-state"><div class="spinner"></div></div>';
+
+      try {
+        const snap = await getDocs(query(collection(db, 'bookings'), orderBy('date', 'desc')));
+        let bookings = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        if (filter !== 'all') bookings = bookings.filter(b => b.status === filter);
+        renderBookingCards(container, bookings, true);
+      } catch (e) {
+        console.error('[renderAdminBookings] Falha ao carregar agendamentos:', e);
+        container.innerHTML = `<div class="empty-state">
+      <div class="empty-icon">⚠️</div>
+      <p class="empty-text">Não foi possível carregar os agendamentos</p>
+      <p class="empty-sub">Abra o console (F12) para ver o erro técnico</p>
+    </div>`;
+      }
     }
 
     function openBookingDetail(id) {
