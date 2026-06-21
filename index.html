@@ -1746,7 +1746,7 @@
   <div id="toast-container"></div>
 
   <!-- ═══════════════ HEADER ═══════════════ -->
-  <header id="header">
+  <header id="header" class="hidden">
     <div class="header-logo" onclick="goHome()">BARBER<span>PRO</span></div>
     <div class="header-right">
       <span class="version-badge">v1.0.0</span>
@@ -2370,6 +2370,11 @@
       target.classList.add('active');
       window.scrollTo(0, 0);
 
+      // Header (e o hamburguer) só deve existir para quem está logado —
+      // sem isso, dava pra abrir o drawer e navegar pelo app inteiro
+      // direto da tela de login.
+      document.getElementById('header').classList.toggle('hidden', page === 'auth');
+
       // Update active drawer item
       document.querySelectorAll('.drawer-item').forEach(i => i.classList.remove('active'));
 
@@ -2398,6 +2403,15 @@
       document.getElementById('drawer').classList.remove('open');
       document.getElementById('overlay').classList.remove('show');
       document.getElementById('hamburger').classList.remove('open');
+    }
+
+    /* ─────────────────────────────────────────
+       HTML ESCAPE (evita XSS em texto vindo do Firestore, ex: legendas)
+    ────────────────────────────────────────── */
+    function escapeHTML(str) {
+      return String(str ?? '').replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[c]));
     }
 
     /* ─────────────────────────────────────────
@@ -2974,8 +2988,8 @@
           const el = document.createElement('div');
           el.className = 'gallery-item';
           el.innerHTML = `
-        <img src="${p.url}" alt="${p.caption || 'Trabalho'}" loading="lazy" />
-        ${p.caption ? `<div class="gallery-item-label">${p.caption}</div>` : ''}
+        <img src="${escapeHTML(p.url)}" alt="${escapeHTML(p.caption || 'Trabalho')}" loading="lazy" />
+        ${p.caption ? `<div class="gallery-item-label">${escapeHTML(p.caption)}</div>` : ''}
       `;
           el.onclick = () => openLightbox(p.url);
           grid.appendChild(el);
@@ -3417,12 +3431,13 @@
         el.className = 'gallery-item';
         el.style.position = 'relative';
         el.innerHTML = `
-      <img src="${p.url}" alt="${p.caption || ''}" loading="lazy" onclick="openLightbox('${p.url}')" />
-      ${p.caption ? `<div class="gallery-item-label">${p.caption}</div>` : ''}
-      <button onclick="deleteGalleryPhoto('${p.id}','${p.publicId || ''}')"
-        style="position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.7);border:none;color:#e05252;
+      <img src="${escapeHTML(p.url)}" alt="${escapeHTML(p.caption || '')}" loading="lazy" />
+      ${p.caption ? `<div class="gallery-item-label">${escapeHTML(p.caption)}</div>` : ''}
+      <button style="position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.7);border:none;color:#e05252;
                width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:13px">🗑</button>
     `;
+        el.querySelector('img').onclick = () => openLightbox(p.url);
+        el.querySelector('button').onclick = () => deleteGalleryPhoto(p.id, p.publicId || '');
         grid.appendChild(el);
       });
 
